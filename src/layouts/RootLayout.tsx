@@ -1,8 +1,9 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/shared/Navbar/Navbar";
 import Footer from "../components/shared/Footer/Footer";
 
-const RootLayout = () => {
+const RootLayout: React.FC = () => {
   return (
     <>
       <header>
@@ -20,4 +21,4 @@ const RootLayout = () => {
   );
 };
 
-export default RootLayout;
+export default RootLayout; 

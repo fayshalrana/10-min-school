@@ -1,7 +1,13 @@
 import React from "react";
 
-const Footer = () => {
-  const companyLinks = [
+interface SocialMediaIcon {
+  name: string;
+  icon: string;
+  url: string;
+}
+
+const Footer: React.FC = () => {
+  const companyLinks: string[] = [
     "Career / Recruitment",
     "Join as a Teacher", 
     "Join as an Affiliate",
@@ -10,7 +16,7 @@ const Footer = () => {
     "Terms & Conditions"
   ];
 
-  const otherLinks = [
+  const otherLinks: string[] = [
     "Blog",
     "Book Store", 
     "Free Notes & Guides",
@@ -19,7 +25,7 @@ const Footer = () => {
     "Free Download"
   ];
 
-  const socialMediaIcons = [
+  const socialMediaIcons: SocialMediaIcon[] = [
     { name: "Facebook", icon: "f", url: "#" },
     { name: "Instagram", icon: "📷", url: "#" },
     { name: "LinkedIn", icon: "in", url: "#" },
@@ -105,33 +111,15 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Right Section - Contact and Social Media */}
+          {/* Right Section - Social Media */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold text-gray-800 mb-4">Keep up with us at</h3>
-            
-            {/* Contact Information */}
-            <div className="space-y-2 mb-6">
-              <p className="text-sm">
-                Call Us: <span className="text-green-600 font-medium">16910</span> (24×7)
-              </p>
-              <p className="text-sm">
-                whatsapp: <span className="text-green-600 font-medium">+8801896016252</span> (24×7)
-              </p>
-              <p className="text-sm">
-                Outside Bangladesh: <span className="text-green-600 font-medium">+880 9610916910</span>
-              </p>
-              <p className="text-sm">
-                Email Us: <span className="text-green-600 font-medium">support@10minuteschool.com</span>
-              </p>
-            </div>
-
-            {/* Social Media Icons */}
-            <div className="flex space-x-3">
+            <h3 className="font-bold text-gray-800 mb-4">Follow Us</h3>
+            <div className="flex space-x-4">
               {socialMediaIcons.map((social, index) => (
                 <a
                   key={index}
                   href={social.url}
-                  className="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
+                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-green-500 hover:text-white transition-colors"
                   title={social.name}
                 >
                   <span className="text-sm font-medium">{social.icon}</span>
@@ -141,15 +129,28 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright Section */}
+        {/* Bottom Section */}
         <div className="border-t border-gray-200 pt-8">
-          <p className="text-center text-gray-500 text-sm">
-            2015 - 2025 Copyright © 10 Minute School. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="text-gray-600 text-sm mb-4 md:mb-0">
+              © 2024 10 Minute School. All rights reserved.
+            </div>
+            <div className="flex space-x-6 text-sm">
+              <a href="#" className="text-gray-600 hover:text-green-600 transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-600 hover:text-green-600 transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="text-gray-600 hover:text-green-600 transition-colors">
+                Cookie Policy
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default Footer; 

@@ -1,8 +1,22 @@
 import React from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
 
-const Hero = () => {
-  const { data, loading, error, isMockData } = useIELTSCourse();
+interface MediaItem {
+  name: string;
+  resource_type?: string;
+  thumbnail_url?: string;
+  resource_value?: string;
+  src?: string;
+}
+
+interface ChecklistItem {
+  id?: string;
+  text: string;
+  icon: string;
+}
+
+const Hero: React.FC = () => {
+  const { data, loading, isMockData } = useIELTSCourse();
 
   if (loading) {
     return (
@@ -26,11 +40,11 @@ const Hero = () => {
   }
 
   // Extract media items for video gallery
-  const previewGallery =
-    data.media?.filter((item) => item.name === "preview_gallery") || [];
-  const mainVideo =
+  const previewGallery: MediaItem[] =
+    data.media?.filter((item: MediaItem) => item.name === "preview_gallery") || [];
+  const mainVideo: MediaItem | undefined =
     data.media?.find(
-      (item) =>
+      (item: MediaItem) =>
         item.name === "preview_gallery" && item.resource_type === "video"
     ) || previewGallery[0];
 
@@ -98,7 +112,6 @@ const Hero = () => {
                           mainVideo?.thumbnail_url ||
                           "https://cdn.10minuteschool.com/images/thumbnails/IELTS_new_16_9.png"
                         }
-                        fetchpriority="high"
                         width="867"
                         height="480"
                         decoding="async"
@@ -150,7 +163,7 @@ const Hero = () => {
 
             {/* Thumbnail Gallery */}
             <div className="flex gap-4 p-4 overflow-x-auto hideScrollbar">
-              {previewGallery.map((item, index) => (
+              {previewGallery.map((item: MediaItem, index: number) => (
                 <div key={index}>
                   <div>
                     <div
@@ -165,7 +178,6 @@ const Hero = () => {
                         style={{ fontSize: "0px", opacity: 1 }}
                       >
                         <img
-                          name="preview_gallery"
                           alt="preview_gallery"
                           data-original-src={
                             item.thumbnail_url || item.resource_value
@@ -186,10 +198,8 @@ const Hero = () => {
                             style={{ fontSize: "0px", opacity: 1 }}
                           >
                             <img
-                              name="Play The Video"
                               alt="Play The Video"
                               data-original-src="/images/annual_exam/play_icon_2.svg"
-                              fetchpriority="high"
                               width="20"
                               height="20"
                               decoding="async"
@@ -265,10 +275,8 @@ const Hero = () => {
                       <div>
                         <div className="opacity-0 transition-opacity duration-300 ease-in-out" style={{fontSize: "0px", objectFit: "cover", opacity: 1}}>
                           <img
-                            name={data.title}
                             alt={data.title}
                             data-original-src={mainVideo?.thumbnail_url || "https://cdn.10minuteschool.com/images/thumbnails/IELTS_new_16_9.png"}
-                            fetchpriority="high"
                             width="867"
                             height="480"
                             decoding="async"
@@ -297,13 +305,12 @@ const Hero = () => {
 
                 {/* Desktop Thumbnail Gallery */}
                 <div className="flex gap-4 p-4 overflow-x-auto hideScrollbar">
-                  {previewGallery.map((item, index) => (
+                  {previewGallery.map((item: MediaItem, index: number) => (
                     <div key={index}>
                       <div>
                         <div className={`relative w-[55px] rounded cursor-pointer overflow-hidden ${index === 0 ? 'outline outline-[2px] outline-[#1CAB55]' : 'border-0'}`}>
                           <div className="rounded opacity-0 transition-opacity duration-300 ease-in-out" style={{fontSize: "0px", opacity: 1}}>
                             <img
-                              name="preview_gallery"
                               alt="preview_gallery"
                               data-original-src={item.thumbnail_url || item.resource_value}
                               loading="lazy"
@@ -319,10 +326,8 @@ const Hero = () => {
                             <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                               <div className="opacity-0 transition-opacity duration-300 ease-in-out" style={{fontSize: "0px", opacity: 1}}>
                                 <img
-                                  name="Play The Video"
                                   alt="Play The Video"
                                   data-original-src="/images/annual_exam/play_icon_2.svg"
-                                  fetchpriority="high"
                                   width="20"
                                   height="20"
                                   decoding="async"
@@ -368,7 +373,7 @@ const Hero = () => {
                             <div className="flex items-center justify-between mb-2"></div>
                           </div>
                           <button className="bg-green whitespace-nowrap button primary text-center md:w-full centered-buttons">
-                            {data.cta_text?.name || "কোর্সটি কিনুন"}
+                            কোর্সটি কিনুন
                           </button>
                         </div>
                       </div>
@@ -386,11 +391,10 @@ const Hero = () => {
               <div className="grid py-2 md:p-4">
                 <p className="mb-4 text-xl font-semibold">এই কোর্সে যা থাকছে</p>
                 <div>
-                  {data.checklist?.map((item, index) => (
+                  {data.checklist?.map((item: ChecklistItem, index: number) => (
                     <div key={item.id || index} className="flex items-center mb-3 leading-5">
                       <div className="inline-block h-[20px] w-[20px] opacity-0 transition-opacity duration-300 ease-in-out" style={{fontSize: "0px", opacity: 1}}>
                         <img
-                          name="icon"
                           alt="icon"
                           data-original-src={item.icon}
                           loading="lazy"
@@ -426,4 +430,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Hero; 

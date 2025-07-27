@@ -1,11 +1,20 @@
-import { useState } from 'react';
-import logo from '../../../assets/images/10mslogo.svg';
+import React, { useState } from 'react';
 
-const Navbar = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
+interface NavigationItem {
+  id: string;
+  label: string;
+  hasDropdown: boolean;
+  dropdownItems: Array<{
+    icon: string;
+    text: string;
+  }>;
+}
+
+const Navbar: React.FC = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   // Navigation items with dropdown data
-  const navItems = [
+  const navItems: NavigationItem[] = [
     {
       id: 'class',
       label: 'ক্লাস ৬-১২',
@@ -79,11 +88,11 @@ const Navbar = () => {
     }
   ];
 
-  const handleMouseEnter = (itemId) => {
+  const handleMouseEnter = (itemId: string): void => {
     setActiveDropdown(itemId);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (): void => {
     setActiveDropdown(null);
   };
 
@@ -95,7 +104,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="text-2xl font-bold">
-                <img src={logo} alt="10 Minute School Logo" className="h-8 w-auto" />
+                <img src="/src/assets/images/10mslogo.svg" alt="10 Minute School Logo" className="h-8 w-auto" />
               </div>
             </div>
           </div>
@@ -198,4 +207,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; 
