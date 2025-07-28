@@ -164,13 +164,11 @@ const StudentsOpinion: React.FC = () => {
                 {hasVideoData(testimonial) ? (
                   // Render video testimonial card
                   <VideoTestimonialCard
-                    testimonial={testimonial.testimonial}
                     studentName={testimonial.name}
                     ieltsScore={getIELTSScore(testimonial.description)}
                     profileImage={testimonial.profile_image}
                     videoThumbnail={testimonial.thumb}
                     videoUrl={testimonial.video_url}
-                    onReadMore={() => handleReadMore(testimonial.id)}
                   />
                 ) : (
                   // Render text testimonial card

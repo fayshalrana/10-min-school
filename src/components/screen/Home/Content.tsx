@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
 import SectionNavigation from "./SectionNavigation";
 import CourseInstructor from "./CourseInstructor";
@@ -14,13 +14,6 @@ import PaymentProcess from "./PaymentProcess";
 import FAQ from "./FAQ";
 import ContactInfo from "./ContactInfo";
 import MoreCourses from "./MoreCourses";
-
-interface CourseStructureItem {
-  icon: string;
-  title: string;
-  description: string;
-  color: string;
-}
 
 const Content: React.FC = () => {
   const { data, loading } = useIELTSCourse();
@@ -46,53 +39,13 @@ const Content: React.FC = () => {
   const handleSectionChange = (sectionIndex: number): void => {
     setActiveSection(sectionIndex);
     const targetRef = sectionRefs[sectionIndex];
-    if (targetRef?.current) {
+    if (targetRef && targetRef.current) {
       targetRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
   };
-
-  const courseStructure: CourseStructureItem[] = [
-    {
-      icon: "🎥",
-      title: "৫০+ ভিডিও লেকচার",
-      description:
-        "IELTS Academic ও General Training এর Overview, Format ও প্রশ্নের ধরন নিয়ে in-depth আলোচনা",
-      color: "bg-green-500",
-    },
-    {
-      icon: "📄",
-      title: "৩৮টি লেকচার শিট",
-      description:
-        "Reading, Writing, Listening ও Speaking এর প্রতিটি প্রশ্নের উত্তর করার স্ট্র্যাটেজি এবং 600+ Vocabulary",
-      color: "bg-blue-500",
-    },
-    {
-      icon: "📝",
-      title: "রিডিং এন্ড লিসিনিং মক টেস্ট",
-      description:
-        "10 Reading ও 10 Listening Mock Tests এর মাধ্যমে প্রস্তুতি যাচাই",
-      color: "bg-yellow-500",
-    },
-    {
-      icon: "🎤",
-      title: "ডাউট সল্ডিং লাইভ ক্লাস",
-      description:
-        "সাপ্তাহিক জুম ক্লাসে এক্সপার্ট টিচারের কাছে প্রবলেম সলভিং এর সুযোগ",
-      color: "bg-red-500",
-    },
-  ];
-
-  const learningOutcomes: string[] = [
-    "IELTS পরীক্ষার প্রত্যেক সেকশনের প্রশ্ন ও উত্তরের ধরন, টাইম ম্যানেজমেন্ট সম্পর্কিত গুরুত্বপূর্ণ টিপস, ট্রিকস ও স্ট্র্যাটেজি",
-    "IELTS Speaking test-এ Advanced/Power Words ব্যবহার করে যেকোনো টপিকে নির্ভুলভাবে কথা বলার পদ্ধতি",
-    "IELTS পরীক্ষা চলাকালে নির্ধারিত সময়ের সঠিক ব্যবহারের মাধ্যমে ভালো স্কোর অর্জনের কৌশল",
-    "IELTS Writing Task 1 ও IELTS Writing Task 2 এর ক্ষেত্রে ভালো স্কোর পেতে সহায়ক Structure ও Essay type",
-    "সেরা IELTS প্রস্তুতি নিতে প্রতিটি মডিউলের নিয়ম-কানুনসহ খুঁটিনাটি বিষয়াদি নিয়ে বিস্তারিত ধারণা",
-    "IELTS Reading এবং IELTS Listening Mock Test এর মাধ্যমে IELTS পরীক্ষার রিয়েল এক্সপেরিয়েন্স ও Band Score সম্বন্ধে পরিপূর্ণ ধারণা",
-  ];
 
   useEffect(() => {
     console.log("showRightSection changed to:", showRightSection);

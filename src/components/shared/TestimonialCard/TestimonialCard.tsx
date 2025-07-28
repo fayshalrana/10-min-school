@@ -79,8 +79,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             onError={(e) => {
               // Hide the broken image and show fallback
               e.currentTarget.style.display = 'none';
-              const fallbackDiv = e.currentTarget.nextElementSibling;
-              if (fallbackDiv) {
+              const fallbackDiv = e.currentTarget.nextElementSibling as HTMLDivElement;
+              if (fallbackDiv && fallbackDiv.style) {
                 fallbackDiv.style.display = 'flex';
               }
             }}

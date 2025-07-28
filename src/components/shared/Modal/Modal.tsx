@@ -4,7 +4,6 @@ import { ModalProps } from '../../../types';
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  title,
   children
 }) => {
   // Handle escape key

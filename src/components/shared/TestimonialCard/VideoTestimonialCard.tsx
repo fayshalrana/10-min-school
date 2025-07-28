@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 
 interface VideoTestimonialCardProps {
-  testimonial: string;
   studentName: string;
   ieltsScore: number;
   profileImage: string;
   videoThumbnail: string;
   videoUrl: string;
-  onReadMore?: () => void;
 }
 
 const VideoTestimonialCard: React.FC<VideoTestimonialCardProps> = ({
-  testimonial,
   studentName,
   ieltsScore,
   profileImage,
   videoThumbnail,
-  videoUrl,
-  onReadMore
+  videoUrl
 }) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 

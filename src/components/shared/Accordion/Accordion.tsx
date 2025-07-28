@@ -9,14 +9,12 @@ interface AccordionItem {
 
 interface AccordionProps {
   items: AccordionItem[];
-  onItemClick?: (item: AccordionItem) => void;
   className?: string;
   allowMultiple?: boolean; // New prop to control accordion behavior
 }
 
 const Accordion: React.FC<AccordionProps> = ({ 
   items, 
-  onItemClick, 
   className = "",
   allowMultiple = false // Default to accordion behavior (only one open at a time)
 }) => {
@@ -47,12 +45,6 @@ const Accordion: React.FC<AccordionProps> = ({
     }
     
     setExpandedItems(newExpandedItems);
-  };
-
-  const handleItemClick = (item: AccordionItem): void => {
-    if (onItemClick) {
-      onItemClick(item);
-    }
   };
 
   return (
@@ -94,4 +86,4 @@ const Accordion: React.FC<AccordionProps> = ({
   );
 };
 
-export default Accordion; 
+export default Accordion;
