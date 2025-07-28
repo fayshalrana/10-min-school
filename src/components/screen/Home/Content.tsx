@@ -246,18 +246,6 @@ const Content: React.FC = () => {
               : "opacity-0 translate-y-4 pointer-events-none"
           }`}
         >
-          {/* Debug indicator */}
-          <div className="absolute top-2 right-2 z-10">
-            <div
-              className={`px-2 py-1 rounded text-xs ${
-                showRightSection
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-            >
-              {showRightSection ? "VISIBLE" : "HIDDEN"}
-            </div>
-          </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
             {/* Pricing */}

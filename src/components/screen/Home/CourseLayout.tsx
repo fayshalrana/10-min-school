@@ -1,58 +1,40 @@
 import React from "react";
+import { useIELTSCourse } from "../../../hooks/useTest";
+import { SectionData } from "../../../types";
 
 interface CourseFeature {
   icon: string;
   title: string;
-  description: string;
-  color: string;
+  subtitle: string;
+  id: string;
 }
 
 const CourseLayout: React.FC = () => {
-  const courseFeatures: CourseFeature[] = [
-    {
-      icon: "🎥",
-      title: "৫০+ ভিডিও লেকচার",
-      description:
-        "IELTS Academic ও General Training এর Overview, Format ও প্রশ্নের ধরন নিয়ে in-depth আলোচনা",
-      color: "bg-green-500",
-    },
-    {
-      icon: "📄",
-      title: "৩৮টি লেকচার শিট",
-      description:
-        "Reading, Writing, Listening ও Speaking এর প্রতিটি প্রশ্নের উত্তর করার স্ট্র্যাটেজি এবং 600+ Vocabulary",
-      color: "bg-blue-500",
-    },
-    {
-      icon: "📝",
-      title: "রিডিং এন্ড লিসিনিং মক টেস্ট",
-      description:
-        "10 Reading ও 10 Listening Mock Tests এর মাধ্যমে প্রস্তুতি যাচাই",
-      color: "bg-yellow-500",
-    },
-    {
-      icon: "🎤",
-      title: "ডাউট সল্ডিং লাইভ ক্লাস",
-      description:
-        "সাপ্তাহিক জুম ক্লাসে এক্সপার্ট টিচারের কাছে প্রবলেম সলভিং এর সুযোগ",
-      color: "bg-red-500",
-    },
-  ];
+  const { data, loading } = useIELTSCourse();
 
-  const profileScores = [
-    { score: "8.5", image: "https://cdn.10minuteschool.com/images/profiles/student1.jpg" },
-    { score: "8.0", image: "https://cdn.10minuteschool.com/images/profiles/student2.jpg" },
-    { score: "7.5", image: "https://cdn.10minuteschool.com/images/profiles/student3.jpg" },
-    { score: "8.0", image: "https://cdn.10minuteschool.com/images/profiles/student4.jpg" },
-    { score: "7.5", image: "https://cdn.10minuteschool.com/images/profiles/student5.jpg" },
-    { score: "8.5", image: "https://cdn.10minuteschool.com/images/profiles/student6.jpg" },
-    { score: "7.0", image: "https://cdn.10minuteschool.com/images/profiles/student7.jpg" },
-    { score: "8.0", image: "https://cdn.10minuteschool.com/images/profiles/student8.jpg" },
-    { score: "7.5", image: "https://cdn.10minuteschool.com/images/profiles/student9.jpg" },
-    { score: "8.0", image: "https://cdn.10minuteschool.com/images/profiles/student10.jpg" },
-    { score: "7.5", image: "https://cdn.10minuteschool.com/images/profiles/student11.jpg" },
-    { score: "8.5", image: "https://cdn.10minuteschool.com/images/profiles/student12.jpg" },
-  ];
+  if (loading) {
+    return (
+      <div className="">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-black mb-4">
+            কোর্সটি যেভাবে সাজানো হয়েছে
+          </h2>
+          <div className="flex items-center justify-center p-6">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  // Extract features data from API
+  const featuresSection = (data as any).sections?.find((section: SectionData) => section.type === "features");
+  const courseFeatures: CourseFeature[] = featuresSection?.values || [];
+
 
   return (
     <div className="">
@@ -64,21 +46,28 @@ const CourseLayout: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 rounded-lg p-6">
           {courseFeatures.map((feature, index) => (
             <div
-              key={index}
+              key={feature.id || index}
               className="text-white"
             >
               <div className="flex items-start space-x-4">
-                <div
-                  className={`w-12 h-12 rounded-full ${feature.color} flex items-center justify-center text-white text-xl flex-shrink-0`}
-                >
-                  {feature.icon}
+                <div className="flex items-center justify-center text-white text-xl flex-shrink-0">
+                  <img 
+                    src={feature.icon} 
+                    alt={feature.title}
+                    className="w-8 h-8 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <span className="text-lg hidden">📚</span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold mb-2">
                     {feature.title}
                   </h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    {feature.description}
+                    {feature.subtitle}
                   </p>
                 </div>
               </div>
@@ -88,11 +77,10 @@ const CourseLayout: React.FC = () => {
       </div>
 
       {/* Free PDF Section */}
-      <div className="bg-black rounded-lg p-6">
+      <div className="rounded-lg p-6" style={{ backgroundImage: "url('https://cdn.10minuteschool.com/images/Free_class_card_BG_1722414654287.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <span className="text-2xl">⭐</span>
-            <h3 className="text-xl font-bold text-white">Free PDF</h3>
+            <img src="https://cdn.10minuteschool.com/images/catalog/product/pointer/467478234_1276985680016189_8175110495169425888_n_1732621183218.png" alt="" style={{height: "40px"}} />
           </div>
         </div>
         

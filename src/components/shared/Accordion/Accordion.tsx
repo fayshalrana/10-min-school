@@ -11,12 +11,14 @@ interface AccordionProps {
   items: AccordionItem[];
   onItemClick?: (item: AccordionItem) => void;
   className?: string;
+  allowMultiple?: boolean; // New prop to control accordion behavior
 }
 
 const Accordion: React.FC<AccordionProps> = ({ 
   items, 
   onItemClick, 
-  className = "" 
+  className = "",
+  allowMultiple = false // Default to accordion behavior (only one open at a time)
 }) => {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(
     new Set(items.filter(item => item.isExpanded).map(item => item.id))
@@ -24,11 +26,26 @@ const Accordion: React.FC<AccordionProps> = ({
 
   const toggleItem = (itemId: string): void => {
     const newExpandedItems = new Set(expandedItems);
-    if (newExpandedItems.has(itemId)) {
-      newExpandedItems.delete(itemId);
+    
+    if (allowMultiple) {
+      // Allow multiple items to be expanded
+      if (newExpandedItems.has(itemId)) {
+        newExpandedItems.delete(itemId);
+      } else {
+        newExpandedItems.add(itemId);
+      }
     } else {
-      newExpandedItems.add(itemId);
+      // Accordion behavior: only one item can be expanded at a time
+      if (newExpandedItems.has(itemId)) {
+        // If clicking the same item, close it
+        newExpandedItems.delete(itemId);
+      } else {
+        // If clicking a different item, close all others and open this one
+        newExpandedItems.clear();
+        newExpandedItems.add(itemId);
+      }
     }
+    
     setExpandedItems(newExpandedItems);
   };
 
@@ -44,7 +61,9 @@ const Accordion: React.FC<AccordionProps> = ({
         <div key={item.id}>
           <button
             onClick={() => toggleItem(item.id)}
-            className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 border-b border-gray-200"
+            className={`w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 ${
+              index === items.length - 1 ? '' : 'border-b border-gray-200'
+            }`}
           >
             <h3 className="font-semibold text-gray-800">{item.title}</h3>
             <svg

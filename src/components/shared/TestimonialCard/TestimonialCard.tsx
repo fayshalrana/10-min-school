@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface TestimonialCardProps {
   testimonial: string;
@@ -15,35 +15,46 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   profileImage,
   onReadMore
 }) => {
+  const [showFullText, setShowFullText] = useState(false);
+
+  const handleReadMore = () => {
+    setShowFullText(!showFullText);
+    if (onReadMore) {
+      onReadMore();
+    }
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 min-w-[320px] max-w-[400px]">
-      {/* Quote Icon */}
-      <div className="mb-4">
-        <svg 
-          className="w-8 h-8 text-orange-400" 
-          fill="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-        </svg>
+    <div className="bg-white rounded-lg shadow-sm border p-4 min-w-[320px] max-w-[400px] relative">
+      {/* Quote Icon - Top Left */}
+      <div className="absolute -top-4 left-6 z-10">
+        <div className="w-10 h-10 bg-[#FCE0D6] rounded-full flex items-center justify-center">
+          <svg 
+            className="w-3 h-3 text-red-500" 
+            fill="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+        </div>
       </div>
 
       {/* Testimonial Text */}
-      <div className="mb-4">
-        <p className="text-gray-700 text-sm leading-relaxed">
+      <div className="mb-4 mt-8">
+        <p className={`text-gray-700 text-sm leading-relaxed ${showFullText ? '' : 'line-clamp-3'}`}>
           {testimonial}
         </p>
       </div>
 
       {/* Read More Link */}
-      <div className="mb-6">
+      <div className="mb-4">
         <button 
-          onClick={onReadMore}
+          onClick={handleReadMore}
           className="flex items-center space-x-1 text-green-600 text-sm font-medium hover:text-green-700 transition-colors"
         >
-          <span>আরও দেখুন</span>
+          <span>{showFullText ? 'কম দেখুন' : 'আরও দেখুন'}</span>
           <svg 
-            className="w-4 h-4" 
+            className={`w-4 h-4 transition-transform ${showFullText ? 'rotate-180' : ''}`}
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -60,16 +71,27 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 
       {/* Student Profile */}
       <div className="flex items-center space-x-3">
-        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
           <img 
             src={profileImage} 
             alt={studentName}
             className="w-full h-full object-cover"
             onError={(e) => {
-              // Fallback to placeholder if image fails to load
-              e.currentTarget.src = "https://via.placeholder.com/48x48/4F46E5/FFFFFF?text=" + studentName.charAt(0);
+              // Hide the broken image and show fallback
+              e.currentTarget.style.display = 'none';
+              const fallbackDiv = e.currentTarget.nextElementSibling;
+              if (fallbackDiv) {
+                fallbackDiv.style.display = 'flex';
+              }
             }}
           />
+          {/* CSS-based fallback */}
+          <div 
+            className="w-full h-full bg-indigo-600 text-white flex items-center justify-center text-sm font-bold"
+            style={{ display: 'none' }}
+          >
+            {studentName.charAt(0)}
+          </div>
         </div>
         <div>
           <h4 className="font-semibold text-gray-800 text-sm">{studentName}</h4>

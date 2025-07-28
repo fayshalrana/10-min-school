@@ -1,63 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import TestimonialCard from "../../shared/TestimonialCard/TestimonialCard";
+import VideoTestimonialCard from "../../shared/TestimonialCard/VideoTestimonialCard";
+import { useIELTSCourse } from "../../../hooks/useTest.tsx";
 
 interface StudentTestimonial {
   id: string;
+  name: string;
+  description: string;
   testimonial: string;
-  studentName: string;
-  ieltsScore: number;
-  profileImage: string;
+  profile_image: string;
+  thumb: string;
+  video_type: string;
+  video_url: string;
 }
 
 const StudentsOpinion: React.FC = () => {
   const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
   const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Use the API hook to get data
+  const { data, loading, error } = useIELTSCourse();
 
-  const testimonials: StudentTestimonial[] = [
-    {
-      id: "1",
-      testimonial: "মুনজেরিন আপুর IELTS কোর্সটা আমার জন্য ছিল super easy to understand. এখানের ক্লাস, মক এক্সাম সবকিছুই ছিল well-prepared এবং structured. Bangla and English মিলিয়ে সাজানো স্টাডি ম্যাটেরিয়ালগুলো সহজে বুঝতে...",
-      studentName: "Mahathi Hasan Showrit",
-      ieltsScore: 6.5,
-      profileImage: "https://cdn.10minuteschool.com/images/testimonials/mahathi-hasan.jpg"
-    },
-    {
-      id: "2",
-      testimonial: "IELTS প্রস্তুতিতে এই কোর্সটা ছিল আমার বড় সাপোর্ট। 7.5 স্কোর করেছি একদম নিজের pace-এ পড়াশোনা করে, কারণ কোর্সটা flexible এবং easy to understand। test আর live class গুলো আমাকে পুরে...",
-      studentName: "Istiaq Islam",
-      ieltsScore: 7.0,
-      profileImage: "https://cdn.10minuteschool.com/images/testimonials/istiaq-islam.jpg"
-    },
-    {
-      id: "3",
-      testimonial: "এই কোর্সের মাধ্যমে আমি আমার IELTS স্কোর 6.0 থেকে 7.5 এ উন্নত করেছি। প্রতিটি মডিউলের জন্য আলাদা স্ট্র্যাটেজি এবং প্র্যাকটিস ম্যাটেরিয়াল ছিল খুবই সহায়ক...",
-      studentName: "Fatima Rahman",
-      ieltsScore: 7.5,
-      profileImage: "https://cdn.10minuteschool.com/images/testimonials/fatima-rahman.jpg"
-    },
-    {
-      id: "4",
-      testimonial: "IELTS প্রস্তুতির জন্য এই কোর্সটা আমার জন্য ছিল perfect choice। মক টেস্টগুলো real exam এর মতই ছিল এবং instructor এর guidance ছিল exceptional...",
-      studentName: "Ahmed Khan",
-      ieltsScore: 6.5,
-      profileImage: "https://cdn.10minuteschool.com/images/testimonials/ahmed-khan.jpg"
-    },
-    {
-      id: "5",
-      testimonial: "এই কোর্সের সবচেয়ে ভালো দিক হল flexible schedule এবং comprehensive study materials। আমি আমার own time এ study করতে পেরেছি এবং ভালো রেজাল্ট পেয়েছি...",
-      studentName: "Nadia Chowdhury",
-      ieltsScore: 7.0,
-      profileImage: "https://cdn.10minuteschool.com/images/testimonials/nadia-chowdhury.jpg"
-    }
-  ];
+  // Extract testimonials from API data
+  const testimonials: StudentTestimonial[] = React.useMemo(() => {
+    if (!data?.sections) return [];
+    
+    const testimonialsSection = data.sections.find(
+      (section: any) => section.type === "testimonials"
+    );
+    
+    return testimonialsSection?.values || [];
+  }, [data]);
 
   const handleScroll = (direction: 'left' | 'right'): void => {
-    if (!scrollContainerRef.current) return;
+    if (!scrollContainerRef.current) {
+      console.log('Scroll container not found');
+      return;
+    }
 
     const container = scrollContainerRef.current;
     const scrollAmount = 400; // Adjust scroll amount for testimonial cards
+
+    console.log(`Scrolling ${direction}, current scrollLeft:`, container.scrollLeft);
 
     if (direction === 'left') {
       container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -70,30 +56,86 @@ const StudentsOpinion: React.FC = () => {
     if (!scrollContainerRef.current) return;
 
     const container = scrollContainerRef.current;
-    setCanScrollLeft(container.scrollLeft > 0);
-    setCanScrollRight(
-      container.scrollLeft < container.scrollWidth - container.clientWidth
-    );
+    const canScrollLeftValue = container.scrollLeft > 0;
+    const canScrollRightValue = container.scrollLeft < container.scrollWidth - container.clientWidth;
+    
+    console.log('Scroll state check:', {
+      scrollLeft: container.scrollLeft,
+      scrollWidth: container.scrollWidth,
+      clientWidth: container.clientWidth,
+      canScrollLeft: canScrollLeftValue,
+      canScrollRight: canScrollRightValue
+    });
+    
+    setCanScrollLeft(canScrollLeftValue);
+    setCanScrollRight(canScrollRightValue);
   };
 
   useEffect(() => {
-    checkScrollButtons();
+    // Add a small delay to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      checkScrollButtons();
+    }, 100);
+    
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener('scroll', checkScrollButtons);
-      return () => container.removeEventListener('scroll', checkScrollButtons);
+      return () => {
+        clearTimeout(timer);
+        container.removeEventListener('scroll', checkScrollButtons);
+      };
     }
-  }, []);
+    
+    return () => clearTimeout(timer);
+  }, [testimonials]); // Add testimonials as dependency
 
   const handleReadMore = (testimonialId: string): void => {
     console.log(`Read more clicked for testimonial: ${testimonialId}`);
     // Handle read more functionality here
   };
 
+  // Extract IELTS score from description
+  const getIELTSScore = (description: string): number => {
+    const match = description.match(/IELTS Score: (\d+(?:\.\d+)?)/);
+    return match ? parseFloat(match[1]) : 0;
+  };
+
+  // Check if testimonial has video data
+  const hasVideoData = (testimonial: StudentTestimonial): boolean => {
+    return !!(testimonial.video_url && testimonial.thumb);
+  };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-600">Failed to load testimonials: {error}</p>
+      </div>
+    );
+  }
+
+  // Show empty state if no testimonials
+  if (!testimonials || testimonials.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-600">No testimonials available</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Students opinion
+      <h2 className="text-xl font-bold text-gray-800 mb-6">
+      Students opinion
       </h2>
       
       <div className="relative">
@@ -101,9 +143,9 @@ const StudentsOpinion: React.FC = () => {
         <button
           onClick={() => handleScroll('left')}
           disabled={!canScrollLeft}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -left-5 top-1/2 z-10 -translate-y-1/2 ${
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -left-6 top-1/2 z-20 -translate-y-1/2 ${
             canScrollLeft
-              ? 'bg-gray-200 hover:bg-gray-300 text-gray-600 shadow-md'
+              ? 'bg-white hover:bg-gray-100 text-gray-600 shadow-lg border'
               : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }`}
         >
@@ -114,18 +156,32 @@ const StudentsOpinion: React.FC = () => {
         <div className="px-4">
           <div
             ref={scrollContainerRef}
-            className="flex space-x-6 overflow-x-auto scrollbar-hide"
+            className="flex space-x-6 overflow-x-auto overflow-y-visible scrollbar-hide pt-10"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="flex-shrink-0">
-                <TestimonialCard
-                  testimonial={testimonial.testimonial}
-                  studentName={testimonial.studentName}
-                  ieltsScore={testimonial.ieltsScore}
-                  profileImage={testimonial.profileImage}
-                  onReadMore={() => handleReadMore(testimonial.id)}
-                />
+                {hasVideoData(testimonial) ? (
+                  // Render video testimonial card
+                  <VideoTestimonialCard
+                    testimonial={testimonial.testimonial}
+                    studentName={testimonial.name}
+                    ieltsScore={getIELTSScore(testimonial.description)}
+                    profileImage={testimonial.profile_image}
+                    videoThumbnail={testimonial.thumb}
+                    videoUrl={testimonial.video_url}
+                    onReadMore={() => handleReadMore(testimonial.id)}
+                  />
+                ) : (
+                  // Render text testimonial card
+                  <TestimonialCard
+                    testimonial={testimonial.testimonial}
+                    studentName={testimonial.name}
+                    ieltsScore={getIELTSScore(testimonial.description)}
+                    profileImage={testimonial.profile_image}
+                    onReadMore={() => handleReadMore(testimonial.id)}
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -135,9 +191,9 @@ const StudentsOpinion: React.FC = () => {
         <button
           onClick={() => handleScroll('right')}
           disabled={!canScrollRight}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -right-5 top-1/2 z-10 -translate-y-1/2 ${
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -right-6 top-1/2 z-20 -translate-y-1/2 ${
             canScrollRight
-              ? 'bg-gray-200 hover:bg-gray-300 text-gray-600 shadow-md'
+              ? 'bg-white hover:bg-gray-100 text-gray-600 shadow-lg border'
               : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }`}
         >

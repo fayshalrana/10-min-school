@@ -38,7 +38,7 @@ const WhatYouWillLearn: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-sm">{outcome}</p>
+                <p className="text-gray-700 leading-relaxed text-[16px] leading-[24px]">{outcome}</p>
               </div>
             ))}
           </div>
@@ -62,7 +62,7 @@ const WhatYouWillLearn: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-sm">{outcome}</p>
+                <p className="text-gray-700 leading-relaxed text-[16px] leading-[24px]">{outcome}</p>
               </div>
             ))}
           </div>

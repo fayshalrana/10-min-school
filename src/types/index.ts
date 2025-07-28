@@ -37,6 +37,70 @@ export interface LearningOutcome {
   text: string;
 }
 
+// API Course Data Types
+export interface MediaItem {
+  name: string;
+  resource_type?: string;
+  thumbnail_url?: string;
+  resource_value?: string;
+  src?: string;
+}
+
+export interface ChecklistItem {
+  id?: string;
+  text: string;
+  icon: string;
+  color?: string;
+  list_page_visibility?: boolean;
+}
+
+export interface InstructorData {
+  name: string;
+  image: string;
+  description: string;
+  has_instructor_page: boolean;
+  slug: string;
+  short_description?: string;
+}
+
+export interface SectionData {
+  type: string;
+  name: string;
+  description: string;
+  bg_color: string;
+  order_idx: number;
+  values: any[];
+}
+
+export interface CourseData {
+  slug: string;
+  id: number;
+  title: string;
+  description: string;
+  platform: string;
+  type: string;
+  modality: string;
+  old_info?: {
+    cat_id: number;
+    course_id: number;
+    platform: string;
+    skills_cat_id: number;
+    slug: string;
+  };
+  start_at?: string;
+  media: MediaItem[];
+  checklist: ChecklistItem[];
+  sections: SectionData[];
+  seo?: any[];
+  cta_text: {
+    name: string;
+    value: string;
+  };
+  is_cohort_based_course?: boolean;
+  secondary_cta_group?: any[];
+  delivery_method?: string;
+}
+
 // Navigation Types
 export interface NavigationItem {
   id: string;

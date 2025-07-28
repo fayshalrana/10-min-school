@@ -21,6 +21,18 @@ body {
   max-width: 1920px;
   margin: 0 auto;
 }
+
+/* Hide scrollbar for webkit browsers */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .container{
   @apply max-w-full 2xl:max-w-[1200px] px-4 lg:px-10 2xl:mx-auto 2xl:px-0;
 }
