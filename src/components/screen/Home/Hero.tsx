@@ -187,6 +187,10 @@ const Hero: React.FC = () => {
                         />
                       </div>
                     </div>
+                    {/* Overlay - Only for videos */}
+                    {selectedMedia.resource_type === 'video' && (
+                      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+                    )}
                   </div>
                 </div>
               )}
@@ -303,7 +307,7 @@ const Hero: React.FC = () => {
               </span>
             </button>
             <div
-              className="text-gray-400"
+              className="text-gray-400 mt-4"
               style={{ overflow: "hidden", height: "auto", maskImage: "none" }}
             >
               <div>
@@ -368,6 +372,10 @@ const Hero: React.FC = () => {
                               />
                             </div>
                           </div>
+                          {/* Overlay - Only for videos */}
+                          {selectedMedia.resource_type === 'video' && (
+                            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+                          )}
                         </div>
                         <div>
                           <div

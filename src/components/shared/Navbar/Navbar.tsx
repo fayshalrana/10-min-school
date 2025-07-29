@@ -232,13 +232,13 @@ const Navbar: React.FC = () => {
                       onMouseEnter={() => handleMouseEnter(item.id)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="py-1">
-                        {item.dropdownItems.map((dropdownItem, index) => (
-                          <a
-                            key={index}
-                            href="#"
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          >
+                    <div className="py-1">
+                      {item.dropdownItems.map((dropdownItem, index) => (
+                        <a
+                          key={index}
+                          href="#"
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
                             <span className="mr-3 text-lg">
                               {dropdownItem.icon.startsWith('<svg') ? (
                                 <span 
@@ -254,11 +254,11 @@ const Navbar: React.FC = () => {
                                 dropdownItem.icon
                               )}
                             </span>
-                            <span>{dropdownItem.text}</span>
-                          </a>
-                        ))}
-                      </div>
+                          <span>{dropdownItem.text}</span>
+                        </a>
+                      ))}
                     </div>
+                  </div>
                   </>
                 )}
               </div>

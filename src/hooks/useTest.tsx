@@ -396,7 +396,7 @@ export const useIELTSCourse = (language: string = 'bn'): UseIELTSCourseReturn =>
         // console.log('=== useIELTSCourse Hook Called ===');
         // console.log('Hook Language:', language);
         // console.log('Fetching from URL:', url);
-        
+
         // Try to fetch from API first
         const response = await fetch(url, {
           method: 'GET',
