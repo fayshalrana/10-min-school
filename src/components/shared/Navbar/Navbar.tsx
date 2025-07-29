@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPhoneAlt } from "react-icons/fa";
+import logo from "../../../assets/images/10mslogo.svg";
 interface NavigationItem {
   id: string;
   label: string;
@@ -137,7 +138,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center h-[27px] w-[100px]">
             <div className="flex items-center space-x-2">
               <div className="text-2xl font-bold">
-                <img src="/src/assets/images/10mslogo.svg" alt="10 Minute School Logo" className="h-[27px] w-auto" />
+                <img src={logo} alt="10 Minute School Logo" className="h-[27px] w-auto" />
               </div>
             </div>
           </div>
@@ -279,7 +280,7 @@ const Navbar: React.FC = () => {
             </a>
 
             {/* Login Button */}
-            <a href="/auth/login/?returnUrl=%2Fen%2Fproduct%2Fielts-course%2F" className="bg-green-600 text-white px-3 py-1 md:px-6 rounded-md leading-[18 px] whitespace-nowrap text-[12px] font-semibold leading-[24px] md:text-[16px] md:font-medium hover:bg-green-700 transition-colors">
+            <a href="https://10minuteschool.com/en/auth/login/?returnUrl=%2Fen%2Fproduct%2Fielts-course%2F" target='_blank' className="bg-green-600 text-white px-3 py-1 md:px-6 rounded-md leading-[18 px] whitespace-nowrap text-[12px] font-semibold leading-[24px] md:text-[16px] md:font-medium hover:bg-green-700 transition-colors">
               লগ-ইন
             </a>
           </div>

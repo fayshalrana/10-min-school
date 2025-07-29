@@ -77,7 +77,7 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
           </button>
 
           {/* Navigation Items */}
-          <div className="flex-1 max-w-full px-2">
+          <div className="flex-1 max-w-full px-6">
             <div
               ref={scrollContainerRef}
               className="flex overflow-x-auto scrollbar-hide"
@@ -103,7 +103,7 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
           <button
             onClick={() => handleScroll('right')}
             disabled={!canScrollRight}
-            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer absolute -right-[26px] top-1/2 z-[2] block -translate-y-1/2 cursor-pointer mx-lg:hidden ${
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer absolute -right-[20px] top-1/2 z-[2] block -translate-y-1/2 cursor-pointer mx-lg:hidden ${
               canScrollRight
                 ? 'bg-gray-200 hover:bg-gray-300 text-gray-600'
                 : 'bg-gray-100 text-gray-400 cursor-not-allowed'
