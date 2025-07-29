@@ -9,14 +9,15 @@ const ContactInfo: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+      <h2 className="mb-4 text-xl font-semibold md:text-xl">
         আরও কোন জিজ্ঞাসা আছে?
       </h2>
       
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <button
+      <div className="mb-12">
+        <a 
+        href="tel:16910"
           onClick={handleCallClick}
-          className="flex items-center justify-center space-x-3 w-full py-4 px-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+          className="flex items-center justify-center space-x-3 max-w-max py-4 px-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
         >
           {/* Phone Icon */}
           <div className="w-6 h-6 text-green-600">
@@ -29,10 +30,10 @@ const ContactInfo: React.FC = () => {
           </div>
           
           {/* Phone Number Text */}
-          <span className="text-green-600 font-bold text-lg">
+          <span className="text-green-600 font-medium text-lg">
             কল করুন 16910 নম্বরে
           </span>
-        </button>
+        </a>
       </div>
     </div>
   );

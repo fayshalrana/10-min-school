@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { IoIosArrowBack } from "react-icons/io";
 import TestimonialCard from "../../shared/TestimonialCard/TestimonialCard";
 import VideoTestimonialCard from "../../shared/TestimonialCard/VideoTestimonialCard";
-import { useIELTSCourse } from "../../../hooks/useTest.tsx";
+import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 
 interface StudentTestimonial {
   id: string;
@@ -20,17 +20,18 @@ const StudentsOpinion: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
-  // Use the API hook to get data
-  const { data, loading, error } = useIELTSCourse();
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading, error } = useIELTSCourse(currentLanguage);
 
   // Extract testimonials from API data
   const testimonials: StudentTestimonial[] = React.useMemo(() => {
     if (!data?.sections) return [];
-    
+
     const testimonialsSection = data.sections.find(
       (section: any) => section.type === "testimonials"
     );
-    
+
     return testimonialsSection?.values || [];
   }, [data]);
 
@@ -58,7 +59,7 @@ const StudentsOpinion: React.FC = () => {
     const container = scrollContainerRef.current;
     const canScrollLeftValue = container.scrollLeft > 0;
     const canScrollRightValue = container.scrollLeft < container.scrollWidth - container.clientWidth;
-    
+
     console.log('Scroll state check:', {
       scrollLeft: container.scrollLeft,
       scrollWidth: container.scrollWidth,
@@ -66,7 +67,7 @@ const StudentsOpinion: React.FC = () => {
       canScrollLeft: canScrollLeftValue,
       canScrollRight: canScrollRightValue
     });
-    
+
     setCanScrollLeft(canScrollLeftValue);
     setCanScrollRight(canScrollRightValue);
   };
@@ -76,7 +77,7 @@ const StudentsOpinion: React.FC = () => {
     const timer = setTimeout(() => {
       checkScrollButtons();
     }, 100);
-    
+
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener('scroll', checkScrollButtons);
@@ -85,7 +86,7 @@ const StudentsOpinion: React.FC = () => {
         container.removeEventListener('scroll', checkScrollButtons);
       };
     }
-    
+
     return () => clearTimeout(timer);
   }, [testimonials]); // Add testimonials as dependency
 
@@ -134,22 +135,21 @@ const StudentsOpinion: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-6">
-      Students opinion
+      <h2 className="text-xl font-bold text-gray-800 mb-0">
+        Students opinion
       </h2>
-      
+
       <div className="relative">
         {/* Left Arrow */}
         <button
           onClick={() => handleScroll('left')}
           disabled={!canScrollLeft}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -left-6 top-1/2 z-20 -translate-y-1/2 ${
-            canScrollLeft
-              ? 'bg-white hover:bg-gray-100 text-gray-600 shadow-lg border'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          }`}
+          className={`flex rounded-full items-center justify-center transition-all absolute -left-6 top-1/2 z-20 -translate-y-1/2 ${canScrollLeft
+              ? 'shadow-lg'
+              : 'cursor-not-allowed opacity-10'
+            }`}
         >
-          <IoIosArrowBack />
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none" viewBox="0 0 33 32" className="rotate-180"><path fill="#000" fillOpacity="0.5" fillRule="evenodd" d="M16.757 32c8.836 0 16-7.163 16-16s-7.164-16-16-16c-8.837 0-16 7.163-16 16s7.163 16 16 16zM15.064 8.893a1 1 0 00-1.415 1.415L19.342 16l-5.693 5.692a1 1 0 001.415 1.415l6.4-6.4a1 1 0 000-1.414l-6.4-6.4z" clipRule="evenodd"></path></svg>
         </button>
 
         {/* Testimonials Container */}
@@ -189,13 +189,12 @@ const StudentsOpinion: React.FC = () => {
         <button
           onClick={() => handleScroll('right')}
           disabled={!canScrollRight}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -right-6 top-1/2 z-20 -translate-y-1/2 ${
-            canScrollRight
-              ? 'bg-white hover:bg-gray-100 text-gray-600 shadow-lg border'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          }`}
+          className={`flex items-center justify-center transition-all absolute -right-6 top-1/2 z-20 -translate-y-1/2 ${canScrollRight
+              ? 'shadow-lg rounded-full'
+              : 'cursor-not-allowed'
+            }`}
         >
-          <IoIosArrowBack className="rotate-180" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none" viewBox="0 0 33 32"><path fill="#000" fillOpacity="0.5" fillRule="evenodd" d="M16.757 32c8.836 0 16-7.163 16-16s-7.164-16-16-16c-8.837 0-16 7.163-16 16s7.163 16 16 16zM15.064 8.893a1 1 0 00-1.415 1.415L19.342 16l-5.693 5.692a1 1 0 001.415 1.415l6.4-6.4a1 1 0 000-1.414l-6.4-6.4z" clipRule="evenodd"></path></svg>
         </button>
       </div>
     </div>

@@ -40,8 +40,8 @@ const CourseLayout: React.FC = () => {
     <div className="">
       {/* Course Layout Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-black mb-4">
-          কোর্সটি যেভাবে সাজানো হয়েছে
+        <h2 className="mb-4">
+           How the course is laid out
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 rounded-lg p-6">
           {courseFeatures.map((feature, index) => (

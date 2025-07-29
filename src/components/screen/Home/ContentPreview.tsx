@@ -21,9 +21,8 @@ interface CourseSection {
 const ContentPreview: React.FC = () => {
   const [showAllContent, setShowAllContent] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<CourseItem | null>(null);
   const [contactInfo, setContactInfo] = useState<string>("");
-  
+
   const baseSections: CourseSection[] = [
     {
       id: "introduction",
@@ -1507,25 +1506,19 @@ const ContentPreview: React.FC = () => {
     }
   };
 
-  const handleItemClick = (item: CourseItem): void => {
-    setSelectedItem(item);
+  const handleItemClick = (_item: CourseItem): void => {
     setShowModal(true);
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Contact info submitted:", contactInfo);
-    console.log("Selected item:", selectedItem);
     setShowModal(false);
     setContactInfo("");
-    setSelectedItem(null);
   };
 
   const closeModal = (): void => {
     setShowModal(false);
     setContactInfo("");
-    setSelectedItem(null);
   };
 
   // Convert sections to accordion items
@@ -1551,38 +1544,39 @@ const ContentPreview: React.FC = () => {
   }));
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+    <div className="">
+      <h2 className="mb-4">
         Content preview
       </h2>
+      <div className="bg-white rounded-lg shadow-sm border p-6">
 
-      <Accordion items={accordionItems} />
 
-      {/* Bottom Button */}
-      <div className="text-center relative">
-        <button 
-          onClick={toggleAllContent}
-          className="rounded-full bg-white px-4 py-1 text-sm text-gray-500 shadow-[0px_0px_17.0361px_#E7EAF7] hover:bg-gray-50 hover:text-gray-700 flex gap-2 absolute -bottom-[38px]  left-1/2 -translate-x-1/2"
-        >
-          <span className="text-[14px]">{showAllContent ? "কম দেখুন" : "সকল কন্টেন্ট"}</span>
-          <svg
-            className={`w-4 h-4 transition-transform ${
-              showAllContent ? "rotate-180" : ""
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <Accordion items={accordionItems} />
+
+        {/* Bottom Button */}
+        <div className="text-center relative">
+          <button
+            onClick={toggleAllContent}
+            className="rounded-full bg-white px-4 py-1 text-sm text-gray-500 shadow-[0px_0px_17.0361px_#E7EAF7] hover:bg-gray-50 hover:text-gray-700 flex gap-2 absolute -bottom-[38px]  left-1/2 -translate-x-1/2"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
+            <span className="text-[14px]">{showAllContent ? "কম দেখুন" : "সকল কন্টেন্ট"}</span>
+            <svg
+              className={`w-4 h-4 transition-transform ${showAllContent ? "rotate-180" : ""
+                }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-
       {/* Contact Modal */}
       <Modal isOpen={showModal} onClose={closeModal} title="">
         <div className="text-center">
@@ -1591,7 +1585,7 @@ const ContentPreview: React.FC = () => {
             video by providing your mobile<br />
             number/email
           </h3>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -1601,7 +1595,7 @@ const ContentPreview: React.FC = () => {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
-            
+
             <button
               type="submit"
               className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors"

@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdCheckmark } from "react-icons/io";
 
 const CourseRequirements: React.FC = () => {
   const requirements = [
@@ -8,7 +9,7 @@ const CourseRequirements: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <h2 className="mb-4 text-xl font-semibold md:text-2xl">
         Course details
       </h2>
       
@@ -16,22 +17,8 @@ const CourseRequirements: React.FC = () => {
         <div className="space-y-3">
           {requirements.map((requirement, index) => (
             <div key={index} className="flex items-start space-x-3">
-              <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-1">
-                <svg
-                  className="w-3 h-3 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <span className="text-gray-700 text-sm">{requirement}</span>
+              <IoMdCheckmark className="text-blue-500 text-2xl" />
+              <span className="text-[#4B5563] text-[16px] leading-[24px]">{requirement}</span>
             </div>
           ))}
         </div>

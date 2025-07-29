@@ -340,6 +340,30 @@ const mockData: CourseData = {
           video_url: ""
         }
       ]
+    },
+    {
+      type: "faq",
+      name: "সচরাচর জিজ্ঞাসা",
+      description: "",
+      bg_color: "",
+      order_idx: 15,
+      values: [
+        {
+          answer: "<p>১) 'কোর্সটি কিনুন' বাটনে ক্লিক করুন</p><br><p>২) 'শুরু করুন' বাটনে ক্লিক করুন</p> <p>৩) আপনার ফোন নম্বর বা ইমেইল দিয়ে লগ-ইন করুন</p> <p>৪) লগ-ইন করা হয়ে গেলে 'এগিয়ে যান' বাটনে ক্লিক করুন</p> <p>৫) আপনার পছন্দের পেমেন্ট মাধ্যমটি বেছে নিন এবং 'পেমেন্ট করুন' বাটনে ক্লিক করুন</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;বিকাশে পেমেন্ট-এর ক্ষেত্রে:&nbsp;</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- পেমেন্ট মাধ্যম থেকে 'বিকাশ' বেছে নিন। ভবিষ্যৎ ব্যবহারের জন্য আপনি চাইলে বিকশ নম্বরটি সেইভ করে রাখতে পারবেন।</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 'পেমেন্ট করুন' বাটনে ক্লিক করুন। আপনাকে বিকাশ পেমেন্ট গেটওয়েতে নিয়ে যাওয়া হবে</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- আপনার বিকাশ নম্বর এবং পিন নম্বর দিয়ে কনফার্ম করুন, আপনার পেমেন্ট সম্পূর্ণ নিরাপদ</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- বিকাশ পেমেন্ট সম্পর্কে আরও জানতে ভিডিওটি দেখতে পারেন: <a href=\"https://youtu.be/5wfn60rmWX4\" target=\"_blank\">https://youtu.be/5wfn60rmWX4</a>&nbsp;</p> <p>৬) পেমেন্ট সম্পন্ন করার পর 'কোর্স শুরু করুন' বাটনে ক্লিক করলে সরাসরি আপনি কোর্সটি শুরু করতে পারবেন</p> <p>৭) আপনার কেনা কোর্সটি আপনার প্রোফাইলের 'আমার কোর্সসমূহ' সেকশনে দেখতে পাবেন</p> <p>৮) আপনার এনরোল করা সকল কোর্স এখানে পেয়ে যাবেন, সেক্ষেত্রে অবশ্যই আপনাকে লগইন করা থাকতে হবে</p> <p>আরো জানতে ভিডিওটি দেখুন: <a href=\"https://youtu.be/eDrXWrl-SOU\" target=\"_blank\">https://youtu.be/eDrXWrl-SOU</a></p>",
+          id: "metaC1D2f0RsMe1719742435958",
+          question: "কোর্সটি কিনে কিভাবে শুরু করবো?"
+        },
+        {
+          answer: "<p>যেকোনো টেকনিক্যাল সমস্যার জন্য আপনি আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করতে পারেন:</p><ul><li>ইমেইল: support@10minuteschool.com</li><li>ফোন: 16910</li><li>লাইভ চ্যাট: আমাদের ওয়েবসাইটে উপলব্ধ</li><li>হোয়াটসঅ্যাপ: +880 1611-000000</li></ul><p>আমাদের সাপোর্ট টিম ২৪/৭ আপনার সমস্যা সমাধানে সহায়তা করতে প্রস্তুত।</p>",
+          id: "metaTechSupport1719742435959",
+          question: "টেকনিক্যাল সমস্যার জন্য কোথায় যোগাযোগ করবো?"
+        },
+        {
+          answer: "<p>এই কোর্সটি Academic এবং General Training IELTS উভয় মডিউলের জন্য ডিজাইন করা হয়েছে। কোর্সে অন্তর্ভুক্ত:</p><ul><li>Academic এবং General Training উভয় ফরম্যাটের বিস্তৃত কভারেজ</li><li>প্রতিটি মডিউলের জন্য নির্দিষ্ট কৌশল (Reading, Writing, Listening, Speaking)</li><li>উভয় টেস্ট টাইপের জন্য প্র্যাকটিস ম্যাটেরিয়াল</li><li>Academic এবং General Training উভয়ের জন্য মক টেস্ট</li></ul><p>আপনি আপনার নির্দিষ্ট প্রয়োজন এবং লক্ষ্য অনুযায়ী কোন ফরম্যাটে ফোকাস করবেন তা বেছে নিতে পারেন।</p>",
+          id: "metaCourseType1719742435960",
+          question: "এই কোর্সটি Academic নাকি General IELTS-এর জন্য?"
+        }
+      ]
     }
   ],
   cta_text: {
@@ -355,7 +379,7 @@ interface UseIELTSCourseReturn {
   isMockData: boolean;
 }
 
-export const useIELTSCourse = (): UseIELTSCourseReturn => {
+export const useIELTSCourse = (language: string = 'bn'): UseIELTSCourseReturn => {
   const [data, setData] = useState<CourseData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -367,19 +391,45 @@ export const useIELTSCourse = (): UseIELTSCourseReturn => {
         setLoading(true);
         setError(null);
 
+        // Build URL with language parameter
+        const url = `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${language}&=`;
+        // console.log('=== useIELTSCourse Hook Called ===');
+        // console.log('Hook Language:', language);
+        // console.log('Fetching from URL:', url);
+        
         // Try to fetch from API first
-        const response = await fetch('https://api.10minuteschool.com/api/v2/courses/ielts-course');
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-TENMS-SOURCE-PLATFORM': 'web',
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
         
         if (response.ok) {
           const apiData = await response.json();
-          setData(apiData);
+          // console.log('=== API SUCCESS ===');
+          // console.log('API Data received:', apiData);
+          // console.log('API Data sections count:', apiData.data?.sections?.length);
+          // console.log('API Data sections:', apiData.data?.sections);
+          // console.log('Is using mock data: FALSE');
+          setData(apiData.data);
           setIsMockData(false);
         } else {
+          console.log('=== API FAILED ===');
+          console.log('API Error status:', response.status);
+          console.log('API Error status text:', response.statusText);
+          console.log('Falling back to mock data');
           // Fallback to mock data
           setData(mockData);
           setIsMockData(true);
         }
       } catch (err) {
+        // console.log('=== API ERROR ===');
+        // console.log('API Error:', err);
+        // console.log('API Error message:', err instanceof Error ? err.message : 'Unknown error');
+        // console.log('Falling back to mock data due to error');
         // Fallback to mock data on error
         setData(mockData);
         setIsMockData(true);
@@ -389,8 +439,9 @@ export const useIELTSCourse = (): UseIELTSCourseReturn => {
       }
     };
 
+    // console.log('useIELTSCourse hook called with language:', language);
     fetchData();
-  }, []);
+  }, [language]);
 
   return { data, loading, error, isMockData };
 }; 

@@ -25,7 +25,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-4 min-w-[320px] max-w-[400px] relative">
+    <div className="bg-white rounded-lg shadow-sm border p-6 min-w-[320px] max-w-[400px] relative min-h-[290px]">
       {/* Quote Icon - Top Left */}
       <div className="absolute -top-4 left-6 z-10">
         <div className="w-10 h-10 bg-[#FCE0D6] rounded-full flex items-center justify-center">
@@ -41,7 +41,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 
       {/* Testimonial Text */}
       <div className="mb-4 mt-8">
-        <p className={`text-gray-700 text-sm leading-relaxed ${showFullText ? '' : 'line-clamp-3'}`}>
+        <p className={`text-gray-700 text-md leading-relaxed ${showFullText ? '' : 'line-clamp-5'}`}>
           {testimonial}
         </p>
       </div>

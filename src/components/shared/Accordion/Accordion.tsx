@@ -57,7 +57,7 @@ const Accordion: React.FC<AccordionProps> = ({
               index === items.length - 1 ? '' : 'border-b border-gray-200'
             }`}
           >
-            <h3 className="font-semibold text-gray-800">{item.title}</h3>
+            <h3 className="text-sm font-semibold md:text-base">{item.title}</h3>
             <svg
               className={`w-5 h-5 text-gray-400 transition-transform ${
                 expandedItems.has(item.id) ? "rotate-180" : ""
@@ -76,7 +76,7 @@ const Accordion: React.FC<AccordionProps> = ({
           </button>
 
           {expandedItems.has(item.id) && item.content && (
-            <div className="p-4 bg-gray-50">
+            <div className="p-4 bg-gray-50 text-[16px] leading-[24px] text-[#111827]">
               {item.content}
             </div>
           )}

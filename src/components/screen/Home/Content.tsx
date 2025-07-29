@@ -90,17 +90,16 @@ const Content: React.FC = () => {
       const heroSidebar = document.querySelector("[data-hero-sidebar]");
       if (heroSidebar) {
         const sidebarRect = heroSidebar.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
         
         // Show right section when sidebar is completely above the viewport (bottom < 0)
         const isSidebarCompletelyOutOfView = sidebarRect.bottom < 0;
         
-        console.log("Sidebar position:", {
-          top: sidebarRect.top,
-          bottom: sidebarRect.bottom,
-          viewportHeight,
-          isOutOfView: isSidebarCompletelyOutOfView
-        });
+        // console.log("Sidebar position:", {
+        //   top: sidebarRect.top,
+        //   bottom: sidebarRect.bottom,
+        //   viewportHeight,
+        //   isOutOfView: isSidebarCompletelyOutOfView
+        // });
         
         setShowRightSection(isSidebarCompletelyOutOfView);
       }
@@ -146,7 +145,7 @@ const Content: React.FC = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Left Section */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-8">
 
           {/* Section Navigation */}
           <SectionNavigation

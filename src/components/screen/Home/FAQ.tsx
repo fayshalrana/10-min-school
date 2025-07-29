@@ -1,204 +1,124 @@
 import React, { useState } from "react";
 import Accordion from "../../shared/Accordion/Accordion";
+import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
+
+interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
 
 const FAQ: React.FC = () => {
   const [showAllFAQs, setShowAllFAQs] = useState<boolean>(false);
 
-  const allFaqItems = [
-    {
-      id: "start-course",
-      title: "How do I start after purchasing the course?",
-      isExpanded: true,
-      content: (
-        <div className="space-y-3">
-          <ol className="list-decimal list-inside space-y-2 text-sm">
-            <li>Click on the 'Enroll button"</li>
-            <li>Click on the "Enroll Now" button</li>
-            <li>Log in using your phone number or email</li>
-            <li>Once logged in, click on the "Proceed" button</li>
-            <li>
-              Choose your preferred payment method and click on the " Payment" button
-              <div className="ml-6 mt-2">
-                <p className="font-medium mb-2">For payment via Bkash:</p>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Select "Bkash" from the payment options. You can save your Bkash number for future use if you wish.</li>
-                  <li>Click on the "Make Payment" button. You will be redirected to the Bkash payment gateway</li>
-                  <li>Confirm with your Bkash number and PIN, your payment is fully secure</li>
-                  <li>To learn more about Bkash payment, you can watch this video: <a href="https://youtu.be/5wfn60rmWX4" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://youtu.be/5wfn60rmWX4</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>After the payment is completed, the course will appear in your account in the 'My Courses' section.</li>
-            <li>All the courses you have enrolled in will be available here, provided you are logged in</li>
-            <li>For more information, watch this video: <a href="https://youtu.be/eDrXWrI-SOU" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://youtu.be/eDrXWrI-SOU</a></li>
-          </ol>
-        </div>
-      )
-    },
-    {
-      id: "technical-support",
-      title: "Where should I contact for any technical issues (forgot password, change password, course refund, etc.)?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>For any technical issues, you can contact our support team through the following channels:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Email: support@10minuteschool.com</li>
-            <li>Phone: 16910</li>
-            <li>Live chat: Available on our website</li>
-            <li>WhatsApp: +880 1611-000000</li>
-          </ul>
-          <p className="mt-3">Our support team is available 24/7 to assist you with any issues.</p>
-        </div>
-      )
-    },
-    {
-      id: "course-type",
-      title: "Is this course designed for Academic or General IELTS?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>This course is designed to cover both Academic and General Training IELTS modules. The course includes:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Comprehensive coverage of both Academic and General Training formats</li>
-            <li>Specific strategies for each module (Reading, Writing, Listening, Speaking)</li>
-            <li>Practice materials for both test types</li>
-            <li>Mock tests for both Academic and General Training</li>
-          </ul>
-          <p className="mt-3">You can choose which format to focus on based on your specific needs and goals.</p>
-        </div>
-      )
-    },
-    {
-      id: "online-benefits",
-      title: "What are the benefits of studying online with you instead of enrolling offline elsewhere?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <ul className="list-disc list-inside space-y-1">
-            <li>Flexible learning schedule - study at your own pace</li>
-            <li>Access to course materials 24/7</li>
-            <li>Cost-effective compared to traditional classroom courses</li>
-            <li>Expert instructors with proven track records</li>
-            <li>Comprehensive study materials and practice tests</li>
-            <li>Mobile-friendly platform for learning on the go</li>
-            <li>Regular updates and new content additions</li>
-            <li>Community support and peer learning opportunities</li>
-          </ul>
-        </div>
-      )
-    },
-    {
-      id: "live-classes",
-      title: "Are live classes available?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>Yes, we offer live classes as part of our comprehensive IELTS preparation program:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Weekly live doubt-solving sessions</li>
-            <li>Interactive Q&A sessions with expert instructors</li>
-            <li>Real-time feedback on your progress</li>
-            <li>Group discussions and peer learning</li>
-            <li>Specialized sessions for each IELTS module</li>
-          </ul>
-          <p className="mt-3">Live class schedules are announced in advance, and recordings are available for those who cannot attend.</p>
-        </div>
-      )
-    },
-    {
-      id: "course-validity",
-      title: "What is the validity of the course?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>The duration of any Free or Paid course on 10 Minute School Skills is lifetime.</p>
-        </div>
-      )
-    },
-    {
-      id: "course-access",
-      title: "How long can I access the course materials?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>Once you enroll in the course, you will have lifetime access to all course materials, including:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>All video lectures</li>
-            <li>Study materials and practice tests</li>
-            <li>Mock exams and assessments</li>
-            <li>Updated content and new materials</li>
-          </ul>
-        </div>
-      )
-    },
-    {
-      id: "certificate",
-      title: "Do I get a certificate after completing the course?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>Yes, you will receive a certificate of completion after finishing the course. The certificate includes:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Your name and completion date</li>
-            <li>Course title and duration</li>
-            <li>Instructor signature</li>
-            <li>Verifiable certificate ID</li>
-          </ul>
-        </div>
-      )
-    },
-    {
-      id: "refund-policy",
-      title: "What is your refund policy?",
-      isExpanded: false,
-      content: (
-        <div className="text-sm space-y-2">
-          <p>We offer a 7-day money-back guarantee for all our courses. If you're not satisfied with the course within 7 days of purchase, you can request a full refund.</p>
-          <p className="mt-2">To request a refund, please contact our support team with your order details.</p>
-        </div>
-      )
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading, error, isMockData } = useIELTSCourse(currentLanguage);
+
+
+  // Extract FAQ data from API
+  const faqData: FAQItem[] = React.useMemo(() => {
+    if (!data?.sections) {
+      return [];
     }
-  ];
+    
+    const faqSection = data.sections.find(
+      (section: any) => section.type === "faq"
+    );
+  
+    return faqSection?.values || [];
+  }, [data, isMockData]); 
 
   // Show only first 3 items initially, or all items if showAllFAQs is true
-  const displayedFaqItems = showAllFAQs ? allFaqItems : allFaqItems.slice(0, 3);
+  const displayedFaqItems = showAllFAQs ? faqData : faqData.slice(0, 5);
 
   const handleSeeAll = (): void => {
     setShowAllFAQs(!showAllFAQs);
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-600">Failed to load FAQ: {error}</p>
+      </div>
+    );
+  }
+
+  // Show loading state if we're using mock data but API call is still in progress
+  if (isMockData && loading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  // Show empty state if no FAQ data or if using mock data
+  if (!faqData || faqData.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-gray-600">No FAQ available</p>
+      </div>
+    );
+  }
+  
+  // Convert FAQ data to accordion format
+  const accordionItems = displayedFaqItems.map((faq, index) => ({
+    id: faq.id,
+    title: faq.question,
+    isExpanded: index === 0, // First item expanded by default
+    content: (
+      <div 
+      className="text-sm space-y-2"
+      dangerouslySetInnerHTML={{ __html: faq.answer }}
+      />
+    )
+  }));
+
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Frequently Ask Questions
+      <h2 className="mb-4 text-base font-semibold md:text-xl">
+        {data?.sections?.find((section: any) => section.type === "faq")?.name}
       </h2>
       
       <div className="bg-white rounded-lg shadow-sm border">
-        <Accordion items={displayedFaqItems} />
+        <Accordion items={accordionItems} />
         
         {/* See All/Less Button */}
-        <div className="p-4 border-t border-gray-200">
-          <button
-            onClick={handleSeeAll}
-            className="flex items-center justify-center space-x-2 w-full py-3 px-4 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            <span>{showAllFAQs ? "See less" : "See all"}</span>
-            <svg
-              className={`w-4 h-4 transition-transform ${showAllFAQs ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        {faqData.length > 3 && (
+          <div className="relative">
+            <button
+              onClick={handleSeeAll}
+              className="rounded-full bg-white px-4 py-1 text-sm text-gray-500 shadow-[0px_0px_17.0361px_#E7EAF7] hover:bg-gray-50 hover:text-gray-700 flex gap-2 absolute -bottom-[14px]  left-1/2 -translate-x-1/2"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
+              <span>{showAllFAQs ? "কম দেখুন " : "সকল প্রশ্ন-উত্তর "}</span>
+              <svg
+                className={`w-4 h-4 transition-transform ${showAllFAQs ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

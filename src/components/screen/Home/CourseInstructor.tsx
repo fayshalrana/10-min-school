@@ -32,8 +32,8 @@ const CourseInstructor: React.FC = () => {
 
   return (
     <div className="">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        কোর্স ইন্সট্রাক্টর
+      <h2 className="mb-4">
+        Course instructor
       </h2>
       
       <div className="flex items-start space-x-4 bg-white rounded-lg shadow-sm border p-6">
