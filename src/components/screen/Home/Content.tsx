@@ -38,26 +38,44 @@ const Content: React.FC = () => {
 
   // Section refs for scrolling
   const instructorRef = useRef<HTMLDivElement>(null);
-  const courseStructureRef = useRef<HTMLDivElement>(null);
-  const learningOutcomesRef = useRef<HTMLDivElement>(null);
-  const courseDetailsRef = useRef<HTMLDivElement>(null);
+  const courseLayoutRef = useRef<HTMLDivElement>(null);
+  const whatYouWillLearnRef = useRef<HTMLDivElement>(null);
   const contentPreviewRef = useRef<HTMLDivElement>(null);
+  const courseDetailsRef = useRef<HTMLDivElement>(null);
+  const courseFeaturesRef = useRef<HTMLDivElement>(null);
+  const freeProductRef = useRef<HTMLDivElement>(null);
+  const studentsOpinionRef = useRef<HTMLDivElement>(null);
+  const courseRequirementsRef = useRef<HTMLDivElement>(null);
+  const paymentProcessRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
+  const contactInfoRef = useRef<HTMLDivElement>(null);
 
   const sectionRefs = [
     instructorRef,
-    courseStructureRef,
-    learningOutcomesRef,
-    courseDetailsRef,
+    courseLayoutRef,
+    whatYouWillLearnRef,
     contentPreviewRef,
+    courseDetailsRef,
+    courseFeaturesRef,
+    freeProductRef,
+    studentsOpinionRef,
+    courseRequirementsRef,
+    paymentProcessRef,
+    faqRef,
+    contactInfoRef,
   ];
 
   const handleSectionChange = (sectionIndex: number): void => {
     setActiveSection(sectionIndex);
     const targetRef = sectionRefs[sectionIndex];
     if (targetRef && targetRef.current) {
-      targetRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      const element = targetRef.current;
+      const elementPosition = element.offsetTop;
+      const offsetPosition = elementPosition - 150; // 70px offset from top
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
       });
     }
   };
@@ -153,40 +171,64 @@ const Content: React.FC = () => {
           />
 
           {/* Instructor Section */}
-          <CourseInstructor />
+          <div ref={instructorRef}>
+            <CourseInstructor />
+          </div>
 
           {/* Course Structure Section */}
-          <CourseLayout />
+          <div ref={courseLayoutRef}>
+            <CourseLayout />
+          </div>
 
           {/* Learning Outcomes Section */}
-          <WhatYouWillLearn />
+          <div ref={whatYouWillLearnRef}>
+            <WhatYouWillLearn />
+          </div>
 
           {/* Content Preview Section */}
-          <ContentPreview />
+          <div ref={contentPreviewRef}>
+            <ContentPreview />
+          </div>
 
           {/* Course Details Section */}
-          <CourseDetails />
+          <div ref={courseDetailsRef}>
+            <CourseDetails />
+          </div>
 
           {/* Course Features Section */}
-          <CourseFeatures />
+          <div ref={courseFeaturesRef}>
+            <CourseFeatures />
+          </div>
 
           {/* Free Product Section */}
-          <FreeProduct />
+          <div ref={freeProductRef}>
+            <FreeProduct />
+          </div>
 
           {/* Students Opinion Section */}
-          <StudentsOpinion />
+          <div ref={studentsOpinionRef}>
+            <StudentsOpinion />
+          </div>
 
           {/* Course Requirements Section */}
-          <CourseRequirements />
+          <div ref={courseRequirementsRef}>
+            <CourseRequirements />
+          </div>
 
           {/* Payment Process Section */}
-          <PaymentProcess />
+          <div ref={paymentProcessRef}>
+            <PaymentProcess />
+          </div>
 
           {/* FAQ Section */}
-          <FAQ />
+          <div ref={faqRef}>
+            <FAQ />
+          </div>
 
           {/* Contact Info Section */}
-          <ContactInfo />
+          <div ref={contactInfoRef}>
+            <ContactInfo />
+          </div>
         </div>
 
         {/* Right Section - Course Pricing & Features */}

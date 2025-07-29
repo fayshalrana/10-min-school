@@ -14,10 +14,18 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const navigationItems: string[] = [
-    "What you will learn by doing the course",
-    "Course details", 
-    "Course Exclusive Feature",
-    "Free item"
+    "Course Instructor",
+    "Course Layout", 
+    "What you will learn",
+    "Content Preview",
+    "Course Details",
+    "Course Features",
+    "Free Product",
+    "Students Opinion",
+    "Course Requirements",
+    "Payment Process",
+    "FAQ",
+    "Contact Info"
   ];
 
   const handleScroll = (direction: 'left' | 'right'): void => {
@@ -69,11 +77,11 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
             disabled={!canScrollLeft}
             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer cursor-pointer absolute -left-[26px] top-1/2 z-[2] block -translate-y-1/2 cursor-pointer mx-lg:hidden   ${
               canScrollLeft
-                ? 'bg-gray-200 hover:bg-gray-300 text-gray-600'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                ? ''
+                : 'disabled:opacity-20'
             }`}
           >
-            <IoIosArrowBack />
+           <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none" viewBox="0 0 33 32" className="rotate-180"><path fill="#000" fill-opacity="0.5" fill-rule="evenodd" d="M16.757 32c8.836 0 16-7.163 16-16s-7.164-16-16-16c-8.837 0-16 7.163-16 16s7.163 16 16 16zM15.064 8.893a1 1 0 00-1.415 1.415L19.342 16l-5.693 5.692a1 1 0 001.415 1.415l6.4-6.4a1 1 0 000-1.414l-6.4-6.4z" clip-rule="evenodd"></path></svg>
           </button>
 
           {/* Navigation Items */}
@@ -105,11 +113,11 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
             disabled={!canScrollRight}
             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer absolute -right-[20px] top-1/2 z-[2] block -translate-y-1/2 cursor-pointer mx-lg:hidden ${
               canScrollRight
-                ? 'bg-gray-200 hover:bg-gray-300 text-gray-600'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                ? ''
+                : 'disabled:opacity-20'
             }`}
           >
-            <IoIosArrowBack className="rotate-180" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none" viewBox="0 0 33 32"><path fill="#000" fill-opacity="0.5" fill-rule="evenodd" d="M16.757 32c8.836 0 16-7.163 16-16s-7.164-16-16-16c-8.837 0-16 7.163-16 16s7.163 16 16 16zM15.064 8.893a1 1 0 00-1.415 1.415L19.342 16l-5.693 5.692a1 1 0 001.415 1.415l6.4-6.4a1 1 0 000-1.414l-6.4-6.4z" clip-rule="evenodd"></path></svg>
           </button>
         </div>
       </div>

@@ -28,7 +28,7 @@ const VideoTestimonialCard: React.FC<VideoTestimonialCardProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-sm border p-5 min-w-[320px] max-w-[400px] relative">
       {/* Quote Icon - Top Right */}
-      <div className="absolute -top-4 left-6 z-10">
+      <div className="absolute -top-4 left-6 z-2">
         <div className="w-10 h-10 bg-[#FCE0D6] rounded-full flex items-center justify-center">
           <svg 
             className="w-4 h-4 text-red-500" 

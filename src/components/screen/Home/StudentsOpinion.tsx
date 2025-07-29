@@ -144,7 +144,7 @@ const StudentsOpinion: React.FC = () => {
         <button
           onClick={() => handleScroll('left')}
           disabled={!canScrollLeft}
-          className={`flex rounded-full items-center justify-center transition-all absolute -left-6 top-1/2 z-20 -translate-y-1/2 ${canScrollLeft
+          className={`flex rounded-full items-center justify-center transition-all absolute -left-6 top-1/2 z-2 -translate-y-1/2 ${canScrollLeft
               ? 'shadow-lg'
               : 'cursor-not-allowed opacity-10'
             }`}
@@ -189,7 +189,7 @@ const StudentsOpinion: React.FC = () => {
         <button
           onClick={() => handleScroll('right')}
           disabled={!canScrollRight}
-          className={`flex items-center justify-center transition-all absolute -right-6 top-1/2 z-20 -translate-y-1/2 ${canScrollRight
+          className={`flex items-center justify-center transition-all absolute -right-6 top-1/2 z-2 -translate-y-1/2 ${canScrollRight
               ? 'shadow-lg rounded-full'
               : 'cursor-not-allowed'
             }`}
