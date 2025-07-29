@@ -474,7 +474,7 @@ const Hero: React.FC = () => {
                               size="md"
                               className="w-full"
                             >
-                              Enroll
+                              {currentLanguage === 'bn' ? 'কোর্সটি কিনুন' : 'Enroll'}
                             </Button>
                           </div>
                         </div>
@@ -490,7 +490,9 @@ const Hero: React.FC = () => {
               {/* Course Features */}
               <div className="hidden md:block">
                 <div className="grid py-2 md:p-4">
-                  <p className="mb-4 text-xl font-semibold">এই কোর্সে যা থাকছে</p>
+                  <p className="mb-4 text-xl font-semibold">
+                    {currentLanguage === 'bn' ? 'এই কোর্সে যা থাকছে' : 'What\'s included in this course'}
+                  </p>
                   <div>
                     {data.checklist?.map((item: ChecklistItem, index: number) => (
                       <div key={item.id || index} className="flex items-center mb-3 leading-5">
@@ -517,7 +519,9 @@ const Hero: React.FC = () => {
 
             {/* Contact Information */}
             <p className="justify-between hidden mt-4 text-sm text-center text-gray-400 md:flex md:flex-col lg:flex lg:flex-row">
-              <span>কোর্সটি সম্পর্কে বিস্তারিত জানতে</span>
+              <span>
+                {currentLanguage === 'bn' ? 'কোর্সটি সম্পর্কে বিস্তারিত জানতে' : 'For detailed information about the course'}
+              </span>
               <span
                 className="flex items-center justify-center ml-2 underline cursor-pointer text-green hover:text-green-700 transition-colors"
                 onClick={() => setShowContactModal(true)}
@@ -525,7 +529,9 @@ const Hero: React.FC = () => {
                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                   <path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z"></path>
                 </svg>
-                <span className="ml-1">ফোন করুন (16910)</span>
+                <span className="ml-1">
+                  {currentLanguage === 'bn' ? 'ফোন করুন (16910)' : 'Call us (16910)'}
+                </span>
               </span>
             </p>
           </div>
@@ -548,13 +554,17 @@ const Hero: React.FC = () => {
                 <img alt="call us" data-original-src="https://cdn.10minuteschool.com/images/skills/call-us.png" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" src="https://cdn.10minuteschool.com/images/skills/call-us.png" style={{ color: "transparent" }} />
               </div>
               <div className="flex-1 flex justify-center flex-col items-center w-full">
-                <h3 className="text-[16px] font-[400] text-gray-800 mb-6">কোন জিজ্ঞাসা, সমস্যা বা পরামর্শ জানাতে ফোন করুন নিচের নাম্বারে (সকাল ৯টা - রাত ১০টা)</h3>
+                <h3 className="text-[16px] font-[400] text-gray-800 mb-6">
+                  {currentLanguage === 'bn' 
+                    ? 'কোন জিজ্ঞাসা, সমস্যা বা পরামর্শ জানাতে ফোন করুন নিচের নাম্বারে (সকাল ৯টা - রাত ১০টা)' 
+                    : 'For any questions, issues or advice, call the number below (9 AM - 10 PM)'}
+                </h3>
                 <div className="block mb-6 text-2xl font-bold text-green-600">16910</div>
                 <button
                   className="max-w-max bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors text-[16px]"
                   onClick={() => window.open('tel:16910', '_blank')}
                 >
-                  কল করুন: 16910
+                  {currentLanguage === 'bn' ? 'কল করুন: 16910' : 'Call: 16910'}
                 </button>
               </div>
             </div>
