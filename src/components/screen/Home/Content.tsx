@@ -161,7 +161,7 @@ const Content: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+      <div className="flex flex-col-reverse md:grid md:grid-cols-1 lg:grid-cols-3 gap-0">
         {/* Left Section */}
         <div className="lg:col-span-2 flex flex-col gap-8 max-w-[750px]">
 
@@ -242,7 +242,7 @@ const Content: React.FC = () => {
           <div className="bg-white sticky top-[110px]">
             <div className="md:border">
               {/* Desktop Course Details */}
-              <div className="hidden md:block">
+              <div className="block">
                 <div className="" data-device-type="desktop">
                   <div className="w-full p-4 md:h-auto" id="variant">
                     <div className="relative md:static">
@@ -281,7 +281,7 @@ const Content: React.FC = () => {
               </div>
 
               {/* Course Features */}
-              <div className="hidden md:block">
+              <div className="block">
                 <div className="grid py-2 md:p-4">
                   <p className="mb-4 text-xl font-semibold">এই কোর্সে যা থাকছে</p>
                   <div>

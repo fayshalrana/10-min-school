@@ -446,12 +446,6 @@ const Hero: React.FC = () => {
                     ))}
                   </div>
                 </div>
-
-                {/* Mobile Title in Sidebar */}
-                <div className="block md:hidden">
-                  <h1 className="text-gray mb-3 mt-3 text-[21px] font-semibold md:text-4xl">{data.title}</h1>
-                  <div className="mb-4 text-sm font-normal"></div>
-                </div>
               </div>
 
               {/* Desktop Course Details */}

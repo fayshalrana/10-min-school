@@ -68,7 +68,7 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
   }, []);
 
   return (
-    <div className="bg-white sticky top-[65px] z-10 pb-8">
+    <div className="bg-white sticky top-[65px] z-10 pb-8 md:block hidden">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-center relative">
           {/* Left Arrow */}
