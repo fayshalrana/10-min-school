@@ -1,9 +1,12 @@
 import React from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 import { InstructorData, SectionData } from "../../../types";
 
 const CourseInstructor: React.FC = () => {
-  const { data, loading } = useIELTSCourse();
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
 
   if (loading) {
     return (
@@ -32,8 +35,8 @@ const CourseInstructor: React.FC = () => {
 
   return (
     <div className="">
-      <h2 className="mb-4">
-        Course instructor
+      <h2 className="mb-4 text-xl font-semibold md:text-2xl">
+        {instructorSection?.name}
       </h2>
       
       <div className="flex items-start space-x-4 bg-white rounded-lg shadow-sm border p-6">

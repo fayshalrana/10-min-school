@@ -1,8 +1,15 @@
 import React from "react";
 import Accordion from "../../shared/Accordion/Accordion";
+import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 
 const CourseDetails: React.FC = () => {
-  const courseDetailsItems = [
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
+
+  // Fallback course details if API data is not available
+  const fallbackCourseDetailsItems = [
     {
       id: "course-for",
       title: "This IELTS course is for",
@@ -105,10 +112,55 @@ const CourseDetails: React.FC = () => {
     }
   ];
 
+  // Extract course details from API data
+  const { courseDetailsItems, sectionName } = React.useMemo(() => {
+    if (!data?.sections) return { courseDetailsItems: fallbackCourseDetailsItems, sectionName: "Course details" };
+
+    const aboutSection = data.sections.find(
+      (section: any) => section.type === "about"
+    );
+
+    if (aboutSection?.values) {
+      // Convert API data to accordion items format
+      const convertedItems = aboutSection.values.map((item: any, index: number) => ({
+        id: item.id || `about-${index}`,
+        title: item.title || item.name,
+        isExpanded: item.isExpanded || index === 0,
+        content: item.content || item.description || item.text || item.name || item.title
+      }));
+      
+      return {
+        courseDetailsItems: convertedItems,
+        sectionName: aboutSection.name || "Course details"
+      };
+    }
+
+    return { courseDetailsItems: fallbackCourseDetailsItems, sectionName: "Course details" };
+  }, [data]);
+
+  if (loading) {
+    return (
+      <div>
+        <h2 className="mb-4 text-xl font-semibold md:text-2xl">
+          Course details
+        </h2>
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="animate-pulse">
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-8 bg-gray-200 rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2 className="mb-4 text-xl font-semibold md:text-2xl">
-        Course details
+      <h2 className="text-xl font-semibold md:mb-4 md:text-2xl">
+        {sectionName}
       </h2>
       
       <div className="bg-white rounded-lg shadow-sm border">

@@ -57,7 +57,22 @@ const Accordion: React.FC<AccordionProps> = ({
               index === items.length - 1 ? '' : 'border-b border-gray-200'
             }`}
           >
-            <h3 className="text-sm font-semibold md:text-base">{item.title}</h3>
+            <div className="max-w-[90%] font-medium !md:text-base !mx-lg:text-sm">
+              {typeof item.title === 'string' ? (
+                <span 
+                  dangerouslySetInnerHTML={{ 
+                    __html: item.title
+                      .replace(/&lt;/g, '<')
+                      .replace(/&gt;/g, '>')
+                      .replace(/&amp;/g, '&')
+                      .replace(/&quot;/g, '"')
+                      .replace(/&#39;/g, "'")
+                  }} 
+                />
+              ) : (
+                item.title
+              )}
+            </div>
             <svg
               className={`w-5 h-5 text-gray-400 transition-transform ${
                 expandedItems.has(item.id) ? "rotate-180" : ""
@@ -77,7 +92,21 @@ const Accordion: React.FC<AccordionProps> = ({
 
           {expandedItems.has(item.id) && item.content && (
             <div className="p-4 bg-gray-50 text-[16px] leading-[24px] text-[#111827]">
-              {item.content}
+              {typeof item.content === 'string' ? (
+                <div 
+                  className="flex flex-col gap-2"
+                  dangerouslySetInnerHTML={{ 
+                    __html: item.content
+                      .replace(/&lt;/g, '<')
+                      .replace(/&gt;/g, '>')
+                      .replace(/&amp;/g, '&')
+                      .replace(/&quot;/g, '"')
+                      .replace(/&#39;/g, "'")
+                  }} 
+                />
+              ) : (
+                item.content
+              )}
             </div>
           )}
         </div>

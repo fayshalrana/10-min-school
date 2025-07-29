@@ -1,5 +1,6 @@
 import React from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 import { SectionData } from "../../../types";
 import { Button } from "@/components/shared";
 
@@ -11,7 +12,9 @@ interface CourseFeature {
 }
 
 const CourseLayout: React.FC = () => {
-  const { data, loading } = useIELTSCourse();
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
 
   if (loading) {
     return (
@@ -41,8 +44,8 @@ const CourseLayout: React.FC = () => {
     <div className="">
       {/* Course Layout Section */}
       <div className="mb-8">
-        <h2 className="mb-4">
-          How the course is laid out
+        <h2 className="mb-4 text-xl font-semibold md:text-xl">
+          {featuresSection?.name}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 rounded-lg p-6">
           {courseFeatures.map((feature, index) => (

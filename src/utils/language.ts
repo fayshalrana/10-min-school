@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Language utility functions
 
@@ -33,9 +33,36 @@ export const setLanguage = (language: 'en' | 'bn'): void => {
 export const useLanguage = () => {
   const [language, setLanguageState] = useState<'en' | 'bn'>(getCurrentLanguage() as 'en' | 'bn');
   
+  // Listen for language changes from other components
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newLanguage = getCurrentLanguage() as 'en' | 'bn';
+      setLanguageState(newLanguage);
+    };
+
+    // Listen for storage events (when language changes in other tabs/windows)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check for URL changes
+    const handleUrlChange = () => {
+      const newLanguage = getCurrentLanguage() as 'en' | 'bn';
+      setLanguageState(newLanguage);
+    };
+    
+    window.addEventListener('popstate', handleUrlChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
+  }, []);
+  
   const changeLanguage = (newLanguage: 'en' | 'bn') => {
     setLanguage(newLanguage);
     setLanguageState(newLanguage);
+    
+    // Force a page reload to ensure all components update
+    window.location.reload();
   };
   
   return { language, changeLanguage };

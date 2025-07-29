@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
+import { MediaItem } from "../../../types";
 import Button from "../../shared/Button/Button";
-
-interface MediaItem {
-  name: string;
-  resource_type?: string;
-  thumbnail_url?: string;
-  resource_value?: string;
-  src?: string;
-}
 
 interface ChecklistItem {
   id?: string;
@@ -17,7 +11,9 @@ interface ChecklistItem {
 }
 
 const Hero: React.FC = () => {
-  const { data, loading } = useIELTSCourse();
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const [isMobileVideoPlaying, setIsMobileVideoPlaying] = useState(false);
   const [isDesktopVideoPlaying, setIsDesktopVideoPlaying] = useState(false);

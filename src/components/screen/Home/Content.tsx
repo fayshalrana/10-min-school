@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 import SectionNavigation from "./SectionNavigation";
 import CourseInstructor from "./CourseInstructor";
 import CourseLayout from "./CourseLayout";
@@ -17,7 +18,9 @@ import MoreCourses from "./MoreCourses";
 import { Button } from "@/components/shared";
 
 const Content: React.FC = () => {
-  const { data, loading } = useIELTSCourse();
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
   const [showRightSection, setShowRightSection] = useState<boolean>(false);
   const [_activeSection, setActiveSection] = useState<number>(0);
   const rightSectionRef = useRef<HTMLDivElement>(null);

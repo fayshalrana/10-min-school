@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "../../shared/Modal/Modal";
 import Accordion from "../../shared/Accordion/Accordion";
 import ContentItem from "../../shared/ContentItem/ContentItem";
+import { useIELTSCourse } from "../../../hooks/useTest";
+import { useLanguage } from "../../../utils/language";
 
 interface CourseItem {
   id: string;
@@ -22,6 +24,10 @@ const ContentPreview: React.FC = () => {
   const [showAllContent, setShowAllContent] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [contactInfo, setContactInfo] = useState<string>("");
+  
+  // Get current language and use it in the API call
+  const { language: currentLanguage } = useLanguage();
+  const { data, loading } = useIELTSCourse(currentLanguage);
   
   const baseSections: CourseSection[] = [
     {
@@ -1492,16 +1498,48 @@ const ContentPreview: React.FC = () => {
     }
   ];
 
-  const [sections, setSections] = useState<CourseSection[]>(baseSections);
+  // Extract content preview data from API
+  const { apiSections, sectionName } = React.useMemo(() => {
+    if (!data?.sections) return { apiSections: baseSections, sectionName: "Content preview" };
+
+    const contentPreviewSection = data.sections.find(
+      (section: any) => section.type === "content_preview"
+    );
+
+    if (contentPreviewSection?.values) {
+      // Convert API data to CourseSection format
+      const convertedSections = contentPreviewSection.values.map((section: any) => ({
+        id: section.id || section.name?.toLowerCase().replace(/\s+/g, '-'),
+        title: section.name || section.title,
+        isExpanded: section.isExpanded || false,
+        items: section.items?.map((item: any) => ({
+          id: item.id || item.title?.toLowerCase().replace(/\s+/g, '-'),
+          type: item.type || 'document',
+          title: item.title || item.name,
+          isFree: item.isFree || false,
+          icon: item.isFree ? 'green' : 'gray'
+        })) || []
+      }));
+      
+      return {
+        apiSections: convertedSections,
+        sectionName: contentPreviewSection.name || "Content preview"
+      };
+    }
+
+    return { apiSections: baseSections, sectionName: "Content preview" };
+  }, [data]);
+
+  const [sections, setSections] = useState<CourseSection[]>(apiSections);
 
   const toggleAllContent = (): void => {
     if (showAllContent) {
       // Show less - go back to base sections
-      setSections(baseSections);
+      setSections(apiSections);
       setShowAllContent(false);
     } else {
       // Show more - add additional sections
-      setSections([...baseSections, ...additionalSections]);
+      setSections([...apiSections, ...additionalSections]);
       setShowAllContent(true);
     }
   };
@@ -1543,10 +1581,29 @@ const ContentPreview: React.FC = () => {
     ) : undefined
   }));
 
+  if (loading) {
+    return (
+      <div className="">
+        <h2 className="mb-4">
+          Content preview
+        </h2>
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="animate-pulse">
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-8 bg-gray-200 rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="">
-      <h2 className="mb-4">
-        Content preview
+      <h2 className="mb-4 text-xl font-semibold md:text-xl">
+        {sectionName}
       </h2>
       <div className="bg-white rounded-lg shadow-sm border p-6">
 
