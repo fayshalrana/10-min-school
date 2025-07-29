@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { IoIosArrowBack } from "react-icons/io";
 
 interface CourseCard {
   id: string;
@@ -10,11 +9,10 @@ interface CourseCard {
   image: string;
   isPopular?: boolean;
   seatsLimited?: boolean;
-  bandScores?: Array<{ name: string; score: number }>;
+  link?: string;
 }
 
 const MoreCourses: React.FC = () => {
-  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
   const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -25,37 +23,34 @@ const MoreCourses: React.FC = () => {
       instructor: "Zawad Hasan Adib, Saraf Samanth...",
       price: 8500,
       originalPrice: 10000,
-      image: "https://cdn.10minuteschool.com/images/courses/ielts-live-batch.jpg",
+      image: "https://cdn.10minuteschool.com/images/thumbnails/batch-12-ielts-live-batch-thumbnails.jpg",
       seatsLimited: true,
-      bandScores: [
-        { name: "Zawad", score: 8.0 },
-        { name: "Saraf", score: 7.5 },
-        { name: "Adib", score: 8.5 },
-        { name: "Samanth", score: 7.0 },
-        { name: "Hasan", score: 8.0 }
-      ]
+      link: "https://10minuteschool.com/product/ielts-live-batch/?ref=ielts-live-batch&type=recommendation",
     },
     {
       id: "2",
       title: "ঘরে বসে Spoken English",
       instructor: "Munzereen Shahid",
       price: 1950,
-      image: "https://cdn.10minuteschool.com/images/courses/spoken-english.jpg"
+      image: "https://cdn.10minuteschool.com/images/thumbnails/skills/ghore-boshe-Spoken-English-course-thumbnail-by-Munzereen-Shahid-16x9.jpg",
+      link: "https://10minuteschool.com/product/ghore-boshe-spoken-english/?ref=ghore-boshe-spoken-english&type=recommendation",
     },
     {
       id: "3",
       title: "Email Marketing করে Freelancing",
       instructor: "Tisat Fatema Tia",
       price: 1950,
-      image: "https://cdn.10minuteschool.com/images/courses/email-marketing.jpg",
-      isPopular: true
+      image: "https://cdn.10minuteschool.com/images/catalog/media/16x9_1732445853307.jpg",
+      isPopular: true,
+      link: "https://10minuteschool.com/product/email-marketing-course/?ref=email-marketing-course&type=recommendation",
     },
     {
       id: "4",
       title: "Complete English Grammar Course",
       instructor: "Munzereen Shahid",
       price: 1950,
-      image: "https://cdn.10minuteschool.com/images/courses/english-grammar.jpg"
+      image: "https://cdn.10minuteschool.com/images/thumbnails/complete-grammar-course-thumbnail.jpg",
+      link: "https://10minuteschool.com/product/english-grammar-course/?ref=english-grammar-course&type=recommendation",
     },
     {
       id: "5",
@@ -63,15 +58,8 @@ const MoreCourses: React.FC = () => {
       instructor: "Ahmed Khan",
       price: 2500,
       originalPrice: 3000,
-      image: "https://cdn.10minuteschool.com/images/courses/digital-marketing.jpg"
-    },
-    {
-      id: "6",
-      title: "Web Development Bootcamp",
-      instructor: "Fatima Rahman",
-      price: 3500,
-      originalPrice: 4000,
-      image: "https://cdn.10minuteschool.com/images/courses/web-development.jpg"
+      image: "https://cdn.10minuteschool.com/images/thumbnails/skills/youtube-marketing-course-thumbnail.jpg",
+      link: "https://10minuteschool.com/product/youtube-marketing-course/?ref=youtube-marketing-course&type=recommendation",
     }
   ];
 
@@ -92,7 +80,6 @@ const MoreCourses: React.FC = () => {
     if (!scrollContainerRef.current) return;
 
     const container = scrollContainerRef.current;
-    setCanScrollLeft(container.scrollLeft > 0);
     setCanScrollRight(
       container.scrollLeft < container.scrollWidth - container.clientWidth
     );
@@ -113,95 +100,40 @@ const MoreCourses: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+    <div className="mt-12">
+      <h2 className="mb-3 text-xl font-semibold md:mb-8 md:text-xl">
         আপনার জন্য আরও কিছু কোর্স
       </h2>
       
       <div className="relative">
-        {/* Left Arrow */}
-        <button
-          onClick={() => handleScroll('left')}
-          disabled={!canScrollLeft}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -left-5 top-1/2 z-10 -translate-y-1/2 ${
-            canScrollLeft
-              ? 'bg-gray-200 hover:bg-gray-300 text-gray-600 shadow-md'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          }`}
-        >
-          <IoIosArrowBack />
-        </button>
 
         {/* Courses Container */}
-        <div className="px-4">
+        <div className="">
           <div
             ref={scrollContainerRef}
             className="flex space-x-6 overflow-x-auto scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {courses.map((course) => (
-              <div key={course.id} className="flex-shrink-0 w-80">
+              <a href={course.link} target="_blank" key={course.id} className="flex-shrink-0 w-80">
                 <div 
-                  className="bg-white rounded-lg shadow-sm border overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                  className="bg-white rounded-lg shadow-sm border overflow-hidden cursor-pointer hover:shadow-md transition-shadow h-full"
                   onClick={() => handleCourseClick(course.id)}
                 >
                   {/* Course Image */}
                   <div className="relative h-48 bg-gradient-to-br from-red-600 to-red-800">
-                    {course.isPopular && (
-                      <div className="absolute top-2 left-2 bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
-                        POPULAR
-                      </div>
-                    )}
-                    
-                    {/* Course-specific content based on type */}
-                    {course.id === "1" ? (
-                      // IELTS LIVE Batch
-                      <div className="h-full flex flex-col justify-center items-center text-white p-4">
-                        <h3 className="text-xl font-bold mb-4">IELTS •LIVE Batch</h3>
-                        <div className="flex space-x-2 mb-2">
-                          {course.bandScores?.slice(0, 5).map((score, index) => (
-                            <div key={index} className="text-center">
-                              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-600 text-xs font-bold mb-1">
-                                {score.name.charAt(0)}
-                              </div>
-                              <div className="text-xs">Band {score.score}</div>
-                            </div>
-                          ))}
-                        </div>
-                        {course.seatsLimited && (
-                          <div className="text-xs text-red-200">আসন সন্ধ্যো সীমিত</div>
-                        )}
-                      </div>
-                    ) : course.id === "2" ? (
-                      // Spoken English
-                      <div className="h-full flex flex-col justify-center items-center text-white p-4 bg-blue-600">
-                        <h3 className="text-lg font-bold mb-2">ঘরে বসে SPOKEN ENGLISH</h3>
-                        <div className="text-sm">{course.instructor}</div>
-                      </div>
-                    ) : course.id === "3" ? (
-                      // Email Marketing
-                      <div className="h-full flex flex-col justify-center items-center text-white p-4 bg-gradient-to-br from-red-500 to-orange-500">
-                        <h3 className="text-lg font-bold mb-2">EMAIL MARKETING করে FREELANCING</h3>
-                        <div className="text-sm">{course.instructor}</div>
-                      </div>
-                    ) : (
-                      // Default course image
-                      <div className="h-full flex flex-col justify-center items-center text-white p-4 bg-gradient-to-br from-yellow-400 to-yellow-600">
-                        <h3 className="text-lg font-bold mb-2">COMPLETE ENGLISH GRAMMAR COURSE</h3>
-                        <div className="text-sm">{course.instructor}</div>
-                      </div>
-                    )}
+                    <img src={course.image} alt="" />
                   </div>
 
                   {/* Course Details */}
-                  <div className="p-4">
+                  <div className="p-4 flex flex-col h-[calc(100%-12rem)]">
                     <h3 className="font-bold text-gray-800 text-lg mb-1">
                       {course.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-3">
                       {course.instructor}
                     </p>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 mt-auto">
                       <span className="text-green-600 font-bold text-lg">
                         ৳{course.price}
                       </span>
@@ -213,7 +145,7 @@ const MoreCourses: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -222,13 +154,13 @@ const MoreCourses: React.FC = () => {
         <button
           onClick={() => handleScroll('right')}
           disabled={!canScrollRight}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all absolute -right-5 top-1/2 z-10 -translate-y-1/2 ${
+          className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer cursor-pointer absolute right-5 -top-10 ${
             canScrollRight
               ? 'bg-gray-200 hover:bg-gray-300 text-gray-600 shadow-md'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-100 text-gray-400 cursor-not-allowed disabled:opacity-20'
           }`}
         >
-          <IoIosArrowBack className="rotate-180" />
+         <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none" viewBox="0 0 33 32" className="rotate-180"><path fill="#000" fill-opacity="0.5" fill-rule="evenodd" d="M16.757 32c8.836 0 16-7.163 16-16s-7.164-16-16-16c-8.837 0-16 7.163-16 16s7.163 16 16 16zM15.064 8.893a1 1 0 00-1.415 1.415L19.342 16l-5.693 5.692a1 1 0 001.415 1.415l6.4-6.4a1 1 0 000-1.414l-6.4-6.4z" clip-rule="evenodd"></path></svg>
         </button>
       </div>
     </div>
