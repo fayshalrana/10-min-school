@@ -1,6 +1,7 @@
 import React from "react";
 import { useIELTSCourse } from "../../../hooks/useTest";
 import { SectionData } from "../../../types";
+import { Button } from "@/components/shared";
 
 interface CourseFeature {
   icon: string;
@@ -41,7 +42,7 @@ const CourseLayout: React.FC = () => {
       {/* Course Layout Section */}
       <div className="mb-8">
         <h2 className="mb-4">
-           How the course is laid out
+          How the course is laid out
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-800 rounded-lg p-6">
           {courseFeatures.map((feature, index) => (
@@ -51,8 +52,8 @@ const CourseLayout: React.FC = () => {
             >
               <div className="flex items-start space-x-4">
                 <div className="flex items-center justify-center text-white text-xl flex-shrink-0">
-                  <img 
-                    src={feature.icon} 
+                  <img
+                    src={feature.icon}
                     alt={feature.title}
                     className="w-8 h-8 object-contain"
                     onError={(e) => {
@@ -80,10 +81,10 @@ const CourseLayout: React.FC = () => {
       <div className="rounded-lg p-6" style={{ backgroundImage: "url('https://cdn.10minuteschool.com/images/Free_class_card_BG_1722414654287.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <img src="https://cdn.10minuteschool.com/images/catalog/product/pointer/467478234_1276985680016189_8175110495169425888_n_1732621183218.png" alt="" style={{height: "40px"}} />
+            <img src="https://cdn.10minuteschool.com/images/catalog/product/pointer/467478234_1276985680016189_8175110495169425888_n_1732621183218.png" alt="" style={{ height: "40px" }} />
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Side - Content */}
           <div>
@@ -93,9 +94,13 @@ const CourseLayout: React.FC = () => {
             <p className="text-gray-300 text-sm mb-4">
               IELTS ভালো score করার সেরা Strategies জানুন সেরাদের গাইডলাইনে।
             </p>
-            <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-              ফ্রি PDF Download করুন
-            </button>
+            <Button
+              variant="primary"
+              size="md"
+              className="max-w-max"
+            >
+               ফ্রি PDF Download করুন
+            </Button>
           </div>
 
           {/* Right Side - Profile Grid */}

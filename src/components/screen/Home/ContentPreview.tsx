@@ -1579,26 +1579,36 @@ const ContentPreview: React.FC = () => {
       </div>
       {/* Contact Modal */}
       <Modal isOpen={showModal} onClose={closeModal} title="">
-        <div className="text-center">
-          <h3 className="text-lg font-semibold text-gray-800 mb-6 leading-relaxed">
+        <div className="flex flex-col items-start h-full px-2 py-12 md:max-w-[400px]">
+          <h3 className="mb-4 w-full  text-lg font-semibold md:mb-5 md:text-[21px]">
             Please proceed to watch the<br />
             video by providing your mobile<br />
             number/email
           </h3>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              value={contactInfo}
-              onChange={(e) => setContactInfo(e.target.value)}
-              placeholder="Mobile number/ e-mail"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              required
-            />
+          <form onSubmit={handleSubmit} className="space-y-4 w-full">
+            <div className="relative">
+              <input
+                type="text"
+                value={contactInfo}
+                onChange={(e) => setContactInfo(e.target.value)}
+                placeholder="Mobile number/ e-mail"
+                className="w-full p-3 border border-green-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 peer placeholder:text-gray-600"
+                required
+              />
+              <label className="absolute left-3 top-3 text-black transition-all duration-200 peer-focus:-top-2 peer-focus:left-2 peer-focus:text-xs peer-focus:text-green-600 peer-focus:bg-white peer-focus:px-1 peer-[-webkit-autofill]:-top-2 peer-[-webkit-autofill]:left-2 peer-[-webkit-autofill]:text-xs peer-[-webkit-autofill]:text-green-600 peer-[-webkit-autofill]:bg-white peer-[-webkit-autofill]:px-1 pointer-events-none bg-white">
+                Mobile number/ e-mail
+              </label>
+            </div>
             
             <button
               type="submit"
-              className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors"
+              disabled={!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInfo)}
+              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors text-white ${
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInfo)
+                  ? "bg-green-500 hover:opacity-80"
+                  : "cursor-not-allowed bg-[#4B5563] text-white hover:opacity-80"
+              }`}
             >
               Submit
             </button>

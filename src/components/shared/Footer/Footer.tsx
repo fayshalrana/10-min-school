@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
                       <li key={index}>
                         <a 
                           href="#" 
-                          className="mb-2 text-sm font-medium hover:text-green md:text-base"
+                          className="mb-2 text-sm font-medium hover:text-green-600 md:text-base"
                         >
                           {link}
                         </a>

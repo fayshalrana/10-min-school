@@ -29,16 +29,16 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-lg">
+      <div className="absolute right-0 -top-2 h-full w-full md:max-w-[400px] bg-white shadow-lg">
         <div className="h-full flex flex-col">
           {/* Close Button */}
-          <div className="absolute top-4 left-4 z-10">
+          <div className="absolute top-0 -left-[36px] z-10">
             <button
               onClick={onClose}
-              className="w-8 h-8 bg-green-500 hover:bg-green-600 rounded flex items-center justify-center transition-colors"
+              className="w-10 h-10 flex items-center justify-center transition-colors"
               aria-label="Close modal"
             >
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

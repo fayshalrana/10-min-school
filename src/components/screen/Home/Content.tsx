@@ -14,6 +14,7 @@ import PaymentProcess from "./PaymentProcess";
 import FAQ from "./FAQ";
 import ContactInfo from "./ContactInfo";
 import MoreCourses from "./MoreCourses";
+import { Button } from "@/components/shared";
 
 const Content: React.FC = () => {
   const { data, loading } = useIELTSCourse();
@@ -266,9 +267,13 @@ const Content: React.FC = () => {
                               </div>
                               <div className="flex items-center justify-between mb-2"></div>
                             </div>
-                            <button className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors">
-                              কোর্সটি কিনুন
-                            </button>
+                            <Button
+                              variant="primary"
+                              size="md"
+                              className="w-full"
+                            >
+                              Enroll
+                            </Button>
                           </div>
                         </div>
                         <div className="absolute md:static top-[-45px] left-0">
