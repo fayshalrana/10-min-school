@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { IoIosArrowBack } from "react-icons/io";
 
 interface SectionNavigationProps {
   onSectionChange?: (index: number) => void;
